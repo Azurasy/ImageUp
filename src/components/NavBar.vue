@@ -125,7 +125,7 @@ export default {
     navUpload() {
       if (this.$route.path === "/upload")
         this.$store.dispatch("setReload", true);
-      else this.$router.push("upload");
+      else this.$router.push("/upload");
     }
   }
 };

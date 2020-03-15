@@ -1,20 +1,31 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
-import Home from "../views/Home.vue";
-import Upload from "../views/Upload.vue";
+
+import Home from "../views/Home";
+import Upload from "../views/Upload";
+import PageNotFound from "../views/PageNotFound";
 
 Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
-    name: "Home",
+    name: "home",
     component: Home
   },
   {
     path: "/upload",
-    name: "Upload",
+    name: "upload",
     component: Upload
+  },
+  {
+    path: "/404",
+    nmae: "404",
+    component: PageNotFound
+  },
+  {
+    path: "*",
+    redirect: "/404"
   }
 ];
 

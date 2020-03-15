@@ -1,6 +1,6 @@
 <template>
-  <div class="home">
-    <Header title="ImageUp" />
+  <div>
+    <Header title="Page Not Found" />
   </div>
 </template>
 
@@ -8,7 +8,7 @@
 import Header from "../components/Header";
 
 export default {
-  name: "Home",
+  name: "PageNotFound",
   components: {
     Header
   }
