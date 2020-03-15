@@ -1,0 +1,176 @@
+<template>
+  <div>
+    <div :class="['outer', this.$store.getters.theme]">
+      <div
+        :class="['dropcontainer', { hovering: hovering }, { invalid: invalid }]"
+        @drop.prevent="upload"
+        @dragover.prevent="enter"
+        @dragleave="leave"
+        v-cloak
+      >
+        <div
+          :class="['dropframe', { hovering: hovering }, { invalid: invalid }]"
+        >
+          <div style="height: 40%" />
+          <div :class="['droptext', { invalid: invalid }]">
+            {{ droptext }}
+          </div>
+        </div>
+      </div>
+      <div :class="['manual', this.$store.getters.theme]" @click="manual">
+        <div class="manual-or">
+          <span :style="'background-color:' + ((this.$store.getters.theme === 'light') ? '#898e94' : '#57606a') + '; padding: 0 20px;'">or</span>
+        </div>
+
+        <span class="manual-text">
+          <span style="text-decoration: underline;">Select</span>
+          image to upload
+        </span>
+      </div>
+    </div>
+  </div>
+</template>
+
+<script>
+export default {
+  name: "Upload",
+  data: function() {
+    return {
+      file: null,
+      hovering: false,
+      invalid: false,
+      droptext: "Drop image here"
+    };
+  },
+  methods: {
+    upload(e) {
+      this.leave();
+      let files = e.dataTransfer.files;
+      if (!files) return;
+      if (this.isImage(files[0])) this.file = files[0];
+      else this.invalidWarn();
+    },
+    enter() {
+      this.droptext = "Release file";
+      this.hovering = true;
+    },
+    leave() {
+      this.droptext = "Drop image here";
+      this.hovering = false;
+    },
+    isImage(file) {
+      return file && file["type"].split("/")[0] === "image";
+    },
+    invalidWarn() {
+      this.invalid = true;
+      this.droptext = "Not an image!";
+      setTimeout(() => {
+        this.invalid = false;
+        this.droptext = "Drop image here";
+      }, 2000);
+    },
+    manual() {
+      let input = document.createElement("input");
+      input.setAttribute("type", "file");
+      input.click();
+      input.onchange = () => {
+        let files = input.files;
+        if (!files) return;
+        if (this.isImage(files[0])) this.file = files[0];
+        else this.invalidWarn();
+      };
+    }
+  },
+  watch: {
+    file() {
+      console.log(this.file.name);
+    }
+  }
+};
+</script>
+
+<style scoped>
+.outer {
+  box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  max-width: 350px;
+  margin: auto;
+  border-radius: 20px;
+  background-color: #898e94;
+}
+
+.outer.dark, .manual.dark {
+  background-color: #57606a;
+}
+
+.dropcontainer {
+  background-color: #3b444d;
+  height: 250px;
+  border-radius: 20px;
+}
+
+.dropcontainer.hovering {
+  background-color: #4e565e !important;
+}
+
+.dropcontainer.invalid {
+  color: #ff6f69 !important;
+}
+
+.dropframe {
+  max-width: 83%;
+  height: 76%;
+  border: rgb(165, 165, 165) dashed 5px;
+  position: relative;
+  left: 7%;
+  top: 10%;
+  border-radius: 10px;
+}
+
+.dropframe.hovering {
+  border-color: #42b983 !important;
+}
+
+.dropframe.invalid {
+  border-color: #ff6f69 !important;
+}
+
+.droptext {
+  color: white;
+  font-size: 1.8em;
+  opacity: 0.86;
+  font-weight: bold;
+}
+
+.manual {
+  height: 100px;
+  background-color: #898e94;
+  border-radius: 20px;
+  color: white;
+  font-weight: bold;
+  text-shadow: 2px 2px 4px rgb(124, 124, 124), -2px -2px 4px rgb(124, 124, 124);
+}
+
+.manual:hover {
+  cursor: pointer;
+}
+
+.manual-or {
+  margin: auto;
+  padding-top: 15px;
+  opacity: 0.85;
+  max-width: 70%;
+  height: 10px;
+  color: #cacaca;
+  border-bottom: 2px solid #cacaca;
+  text-align: center;
+}
+
+.manual-text {
+  padding-top: 20px;
+  display: block;
+}
+
+.manual:hover .manual-text {
+  color: #ddd;
+}
+</style>
