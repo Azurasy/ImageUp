@@ -14,7 +14,7 @@ sudo apt-get install -y nodejs
 
 Download project files
 ```bash
-git clone <link>
+git clone https://github.com/Azurasy/ImageUp.git
 ```
 Install project dependenices
 ```bash
