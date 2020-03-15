@@ -5,16 +5,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    theme: "light"
+    theme: ""
   },
   mutations: {
-    setTheme(state, name) {
-      state.theme = name;
+    setTheme(state, val) {
+      state.theme = val;
     }
   },
   actions: {
-    setTheme(context, name) {
-      context.commit("setTheme", name);
+    setTheme(context, val) {
+      context.commit("setTheme", val);
     }
   },
   getters: {

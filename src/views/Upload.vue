@@ -1,5 +1,6 @@
 <template>
   <div>
+    <Header title="Upload" />
     <div :class="['outer', this.$store.getters.theme]">
       <div
         :class="['dropcontainer', { hovering: hovering }, { invalid: invalid }]"
@@ -19,12 +20,11 @@
       </div>
       <div :class="['manual', this.$store.getters.theme]" @click="manual">
         <div class="manual-or">
-          <span :style="'background-color:' + ((this.$store.getters.theme === 'light') ? '#898e94' : '#57606a') + '; padding: 0 20px;'">or</span>
+          <span>or</span>
         </div>
 
         <span class="manual-text">
-          <span style="text-decoration: underline;">Select</span>
-          image to upload
+          Select image to upload
         </span>
       </div>
     </div>
@@ -32,8 +32,13 @@
 </template>
 
 <script>
+import Header from "../components/Header.vue";
+
 export default {
   name: "Upload",
+  components: {
+    Header
+  },
   data: function() {
     return {
       file: null,
@@ -98,8 +103,9 @@ export default {
   background-color: #898e94;
 }
 
-.outer.dark, .manual.dark {
+.outer.dark {
   background-color: #57606a;
+  box-shadow: 0 4px 50px 0 rgba(0, 0, 0, 0.1), 0 6px 20px 0 rgba(0, 0, 0, 0.1);
 }
 
 .dropcontainer {
@@ -147,7 +153,10 @@ export default {
   border-radius: 20px;
   color: white;
   font-weight: bold;
-  text-shadow: 2px 2px 4px rgb(124, 124, 124), -2px -2px 4px rgb(124, 124, 124);
+}
+
+.manual.dark {
+  background-color: #57606a;
 }
 
 .manual:hover {
@@ -172,5 +181,14 @@ export default {
 
 .manual:hover .manual-text {
   color: #ddd;
+}
+
+.manual-or span {
+  background-color: #898e94;
+  padding: 0 20px;
+}
+
+.manual.dark span {
+  background-color: #57606a;
 }
 </style>
