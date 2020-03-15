@@ -33,7 +33,17 @@ export default {
 </script>
 
 <style>
-@import url("https://fonts.googleapis.com/css?family=Itim&display=swap");
+@font-face {
+  font-family: "Itim";
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: local("Itim"), local("Itim-Regular"),
+    url("./assets/fonts/item.woff2") format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
+}
 
 html,
 body,
@@ -46,7 +56,7 @@ body,
 
 #app {
   font-weight: bold;
-  font-family: "Itim", cursive;
+  font-family: "Itim";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
@@ -71,12 +81,13 @@ body,
 }
 
 .page {
-  max-width: 960px;
+  max-width: 940px;
   height: 100%;
   margin: auto;
   background-color: white;
   box-shadow: -1px 0px 300px -32px rgba(0, 0, 0, 0.15);
   border-radius: 50px;
+  padding: 0 10px;
 }
 
 .page.dark {
