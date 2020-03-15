@@ -12,21 +12,17 @@
 <script>
 import NavBar from "./components/NavBar";
 
+let body = document.getElementById("body");
+
 export default {
   name: "App",
   components: {
     NavBar
   },
-  methods: {
-    header() {
-      switch (this.$route.path) {
-        case "/":
-          return "Carbon Copy";
-        case "/upload":
-          return "Upload";
-        default:
-          return "Page Not Found";
-      }
+  watch: {
+    "$store.getters.theme": function(nV) {
+      if (nV) body.style.backgroundColor = "#333940";
+      else body.style.backgroundColor = "#fff";
     }
   }
 };
@@ -49,9 +45,8 @@ html,
 body,
 #app {
   margin: 0;
-  padding: 0;
-  height: 100%;
   width: 100%;
+  height: 100%;
 }
 
 #app {
@@ -76,13 +71,14 @@ body,
 }
 
 .view.dark {
-  background-color: #333940; /* #35353e; */
+  background-color: #333940;
   color: rgb(197, 197, 197);
 }
 
 .page {
   max-width: 940px;
-  height: 100%;
+  height: auto;
+  min-height: 100% !important;
   margin: auto;
   background-color: white;
   box-shadow: -1px 0px 300px -32px rgba(0, 0, 0, 0.15);

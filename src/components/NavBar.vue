@@ -119,10 +119,13 @@ export default {
       this.$store.dispatch("setTheme", "dark");
     },
     navHome() {
-      if (this.$route.path !== "/") this.$router.push("/");
+      if (this.$route.path === "/") this.$router.go();
+      else this.$router.push("/");
     },
     navUpload() {
-      if (this.$route.path !== "/upload") this.$router.push("upload");
+      if (this.$route.path === "/upload")
+        this.$store.dispatch("setReload", true);
+      else this.$router.push("upload");
     }
   }
 };
@@ -175,6 +178,11 @@ export default {
     flex-direction: row;
     height: auto;
     width: 100%;
+  }
+
+  .navbtn {
+    border-bottom: none;
+    border-right: 1px solid black;
   }
 }
 </style>
