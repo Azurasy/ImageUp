@@ -1,24 +1,32 @@
-# vue
+# ImageUp
+ImageUp is an image hosting and sharing webapp. Uploaded images recieve a unique link for ease of sharing.
+## Information
+This web application consists of two seperate NodeJs projects:
+ - front-vue (frontend)
+ - back-api (backend)
 
-## Project setup
+## Installation (ubuntu)
+Install NodeJS
+```bash
+curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+sudo apt-get install -y nodejs
 ```
+
+Download project files
+```bash
+git clone <link>
+```
+Install project dependenices
+```bash
+# frontend
+cd imageup/vue
+npm install
+
+# backend
+cd ../back-api
 npm install
 ```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
+## Usage
 ```
 
-### Compiles and minifies for production
 ```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
