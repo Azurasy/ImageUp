@@ -17,7 +17,7 @@ sudo apt-get install -y nodejs
 
 Download project files
 ```bash
-git clone https://github.com/Azurasy/ImageUp.git
+git clone https://github.com/Onusai/ImageUp.git
 ```
 
 ### Frontend setup
