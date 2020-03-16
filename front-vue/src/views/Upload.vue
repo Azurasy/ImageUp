@@ -44,12 +44,11 @@ export default {
       formData.append("options", JSON.stringify(this.options));
 
       axios
-        .post("http://localhost:8181/upload", 
-          formData, {
-            headers: {
-              'Content-Type': 'multipart/form-data'
-            }
-          })
+        .post("http://localhost:8181/upload", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data"
+          }
+        })
         .then(() => {
           console.log(`Upload Successful`);
         })
