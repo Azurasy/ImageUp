@@ -20,7 +20,7 @@ git clone https://github.com/Azurasy/ImageUp.git
 Install project dependenices
 ```bash
 # frontend
-cd imageup/vue
+cd imageup/font-vue
 npm install
 
 # backend
