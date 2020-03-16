@@ -3,7 +3,7 @@
     <div :class="['outer', this.$store.getters.theme]">
       <div
         :class="['dropcontainer', { hovering: hovering }, { invalid: invalid }]"
-        @drop.prevent="upload"
+        @drop.prevent="dropped"
         @dragover.prevent="enter"
         @dragleave="leave"
         v-cloak
@@ -41,7 +41,7 @@ export default {
     };
   },
   methods: {
-    upload(e) {
+    dropped(e) {
       this.leave();
       let files = e.dataTransfer.files;
       if (!files) return;

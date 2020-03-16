@@ -7,6 +7,8 @@
 </template>
 
 <script>
+import axios from "axios";
+
 import Header from "../components/Header";
 import SelectFile from "../components/upload/SelectFile";
 import SelectOptions from "../components/upload/SelectOptions";
@@ -31,7 +33,29 @@ export default {
     },
     selectedOptions(options) {
       this.options = options;
-      console.log(options);
+      console.log(
+        `${options.name} - ${options.exposure} - ${options.expiration}`
+      );
+      this.upload();
+    },
+    upload() {
+      let formData = new FormData();
+      formData.append("image", this.file, this.file.name);
+      formData.append("options", JSON.stringify(this.options));
+
+      axios
+        .post("http://localhost:8181/upload", 
+          formData, {
+            headers: {
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+        .then(() => {
+          console.log(`Upload Successful`);
+        })
+        .catch(res => {
+          console.log(`Upload Failed!  ${res}`);
+        });
     }
   },
   watch: {
