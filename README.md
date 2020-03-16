@@ -1,5 +1,5 @@
 # ImageUp
-ImageUp is an image hosting and sharing webapp. Uploaded images recieve a unique link for ease of sharing.
+Image hosting and sharing web application. Uploaded images recieve a unique link for ease of sharing.
 ## Information
 This web application consists of two seperate NodeJs projects:
 - back-api (backend)
