@@ -6,6 +6,8 @@ This web application consists of two seperate NodeJs projects which must be host
 - back-api (backend)
 - front-vue (frontend)
 
+If you plan to host both on the same machine, you will need to use a program like [Screen](https://www.gnu.org/software/screen/) to create multiple terminal sessions.
+
 ## Installation (ubuntu)
 Install NodeJS
 ```bash
@@ -19,26 +21,44 @@ git clone https://github.com/Azurasy/ImageUp.git
 ```
 
 ### Frontend setup
-Install project dependenices
+Install frontend dependenices
 ```bash
-cd imageup/font-vue
+cd ImageUp/front-vue
+sudo npm i -g @vue/cli
 npm install
 ```
 Build project files
 ```bash
 npm run build
 ```
-There should now be a folder named  `dist` in this directory (`imageup/front-vue/dist`) the contents of which can be served by any static file server.
+There should now be a folder named  `dist` in this directory (`ImageUp/front-vue/dist`) the contents of which can be served by any static file server.
 
-In this case, for simplicity, we will use `serve`.
+For simplicity, we will use `serve`.
 ```bash
-# install 
-sudo npm install -g serve
+# install
+npm i serve
 # host
-serve -s dist
+npx serve -s dist
+```
+The front end should now be reachable on http://localhost:5000
+However, functions that require the backend api, such as uploading images, will not work yet.
+
+### Backend setup
+Open a new terminal session. If you are hosting the backend on another machine, then repeat the NodeJs installation instructions and download the project files before continuing.
+
+Install backend dependenices
+```bash
+cd ImageUp/back-api
+npm install
+```
+Edit the `appconfig.json` file to match your configuration.
+Finally, run the program
+```bash
+npm run start
 ```
 
 ## Usage
 ```
+
 
 ```
