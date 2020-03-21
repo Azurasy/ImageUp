@@ -44,7 +44,7 @@ export default {
       formData.append("options", JSON.stringify(this.options));
 
       axios
-        .post("http://localhost:8181/upload", formData, {
+        .post(`${this.$appconfig.api_url}/upload`, formData, {
           headers: {
             "Content-Type": "multipart/form-data"
           }

@@ -1,5 +1,5 @@
 const fs = require('fs');
-const config = JSON.parse(fs.readFileSync('./appconfig.json'));
+const config = require('./app.config.js');
 
 // express
 const express = require('express');
