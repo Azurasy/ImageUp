@@ -14,6 +14,10 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
+// mariadb
+const db = require('./db.js');
+db.init();
+
 // routes
 app.use('/upload', require('./routes/upload'));
 

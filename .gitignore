@@ -1,7 +1,7 @@
 .DS_Store
 node_modules
 /front-vue/dist
-/back-api/uploads
+/back-api/uploads/*
 
 # local env files
 .env.local

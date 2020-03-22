@@ -19,12 +19,12 @@
         <div>
           <p>Expiration</p>
           <select id="file_expiration">
-            <option value="never">Never</option>
-            <option value="minute">Minute</option>
-            <option value="hour">Hour</option>
-            <option value="day">Day</option>
-            <option value="month">Month</option>
-            <option value="year">Year</option>
+            <option value="-1">Never</option>
+            <option value="60">Minute</option>
+            <option value="3600">Hour</option>
+            <option value="86400">Day</option>
+            <option value="2592000">Month</option>
+            <option value="31536000">Year</option>
           </select>
         </div>
       </div>
@@ -44,7 +44,9 @@ export default {
       let name = document.getElementById("file_name").value;
       if (!name) name = "Untitled";
       let exposure = document.getElementById("file_exposure").value;
-      let expiration = document.getElementById("file_expiration").value;
+      let expiration = parseInt(
+        document.getElementById("file_expiration").value
+      );
       this.$emit("selected", { name, exposure, expiration });
     }
   }
