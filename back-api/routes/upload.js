@@ -26,7 +26,8 @@ router.post('/', upload.single('image'), function (req, res) {
 
   db.getConn()
     .then(conn => {
-        conn.query("INSERT INTO images (user, title, exposure, expiration, filename, uuid) VALUES (?, ?, ?, ?, ?, ?);", [1, options.name, options.exposure, expiration, req.file.originalname, 'NONE'])
+        conn.query("INSERT INTO images (user, title, exposure, expiration, filename, uuid) VALUES (?, ?, ?, ?, ?, ?);",
+                [1, options.name, options.exposure, expiration, req.file.originalname, 'NONE'])
             .then((res) => {
                 console.log(res);
                 conn.end();

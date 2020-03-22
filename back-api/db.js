@@ -5,10 +5,10 @@ let pool;
 
 function init() {
     pool = mariadb.createPool({
-        host: config.db_host, 
-        user: config.db_user, 
-        password: config.db_password,
-        database: config.db_database,
+        host: process.env.DB_HOST, 
+        user: process.env.DB_USER, 
+        password: process.env.DB_PASSWORD,
+        database: process.env.DB_DATABSE,
         connectionLimit: 5
     });
 
@@ -39,8 +39,7 @@ function init() {
                     expiration INT UNSIGNED,
                     filename VARCHAR(100),
                     uuid VARCHAR(8),
-                    PRIMARY KEY (id),
-                    FOREIGN KEY (user) REFERENCES users(id)
+                    PRIMARY KEY (id)
                 );
                 `)
                 .then((res) => {conn.end()})

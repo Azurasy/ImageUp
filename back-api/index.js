@@ -1,5 +1,4 @@
-const fs = require('fs');
-const config = require('./app.config.js');
+require('dotenv').config();
 
 // express
 const express = require('express');
@@ -22,7 +21,7 @@ db.init();
 app.use('/upload', require('./routes/upload'));
 
 // app
-app.listen((process.env.port || config.server_port), err => {
+app.listen((process.env.API_PORT), err => {
     if (err) console.log(err);
-    else console.log(`Listening on http://localhost:${config.server_port}`);
+    else console.log(`Listening on http://localhost:${process.env.API_PORT}`);
 })
