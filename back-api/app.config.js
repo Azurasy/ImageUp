@@ -1,3 +1,9 @@
 module.exports = {
-    port: 8181
+    server_port: 8181,
+
+    // MariaDB Connection
+    db_host: '', 
+    db_user: '', 
+    db_password: '',
+    db_database: ''
 };

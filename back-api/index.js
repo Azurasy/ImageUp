@@ -22,7 +22,7 @@ db.init();
 app.use('/upload', require('./routes/upload'));
 
 // app
-app.listen((process.env.port || config.port), err => {
+app.listen((process.env.port || config.server_port), err => {
     if (err) console.log(err);
-    else console.log(`Listening on http://localhost:${config.port}`);
+    else console.log(`Listening on http://localhost:${config.server_port}`);
 })
