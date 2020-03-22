@@ -8,7 +8,7 @@ This web application consists of two seperate NodeJs projects which must be host
 
 If you plan to host both on the same machine, you will need to use a program like [Screen](https://www.gnu.org/software/screen/) to create multiple terminal sessions.
 
-## Installation (ubuntu)
+## Build & Run (ubuntu)
 Install NodeJS
 ```bash
 curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
@@ -51,7 +51,14 @@ Install backend dependenices
 cd ImageUp/back-api
 npm install
 ```
-Edit the `appconfig.json` file to match your configuration.
+Edit the `.env` file to match your configuration.
+`API_PORT` - port on which the api server will be listening on.
+`DB_HOST` - url to mariadb server.
+`DB_USER` - db username.
+`DB_PASSWORD` - db password.
+`DB_DATABSE` - database name.
+
+
 Finally, run the program
 ```bash
 npm run start
