@@ -119,7 +119,7 @@ export default {
       this.$store.dispatch("setTheme", "dark");
     },
     navHome() {
-      if (this.$route.path === "/") this.$router.go();
+      if (this.$route.path === "/") this.$store.dispatch("setReload", true);
       else this.$router.push("/");
     },
     navUpload() {

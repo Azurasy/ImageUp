@@ -11,6 +11,13 @@ export default {
   name: "Home",
   components: {
     Header
+  },
+  watch: {
+    "$store.getters.reload": function(val) {
+      if (val) {
+        this.$store.dispatch("setReload", false);
+      }
+    }
   }
 };
 </script>
