@@ -1,5 +1,4 @@
 const mariadb = require('mariadb');
-const config = require('./app.config.js');
 
 let pool;
 
