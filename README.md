@@ -1,12 +1,6 @@
 
 # ImageUp
 Image hosting and sharing web application. Uploaded images recieve a unique link for ease of sharing.
-## Information
-This web application consists of two seperate NodeJs projects which must be hosted simultaneously:
-- back-api (backend)
-- front-vue (frontend)
-
-If you plan to host both on the same machine, you will need to use a program like [Screen](https://www.gnu.org/software/screen/) to create multiple terminal sessions.
 
 ## Build & Run (ubuntu)
 Install NodeJS
@@ -20,52 +14,56 @@ Download project files
 git clone https://github.com/Onusai/ImageUp.git
 ```
 
-### Frontend setup
+### Build static front-end files
 Install frontend dependenices
 ```bash
-cd ImageUp/front-vue
+cd ImageUp/client
 sudo npm i -g @vue/cli
 npm install
 ```
-Build project files
+Build
 ```bash
 npm run build
 ```
-There should now be a folder named  `dist` in this directory (`ImageUp/front-vue/dist`) the contents of which can be served by any static file server.
-
-For simplicity, we will use `serve`.
-```bash
-# install
-npm i serve
-# host
-npx serve -s dist
-```
-The front end should now be reachable on http://localhost:5000
-However, functions that require the backend api, such as uploading images, will not work yet.
-
+The files will output into `ImageUp/server/public`
 ### Backend setup
-Open a new terminal session. If you are hosting the backend on another machine, then repeat the NodeJs installation instructions and download the project files before continuing.
-
-Install backend dependenices
+Install backend dependencies
 ```bash
-cd ImageUp/back-api
+cd ImageUp/server
 npm install
 ```
-Edit the `.env` file to match your configuration.
-`API_PORT` - port on which the api server will be listening on.
-`DB_HOST` - url to mariadb server.
-`DB_USER` - db username.
-`DB_PASSWORD` - db password.
-`DB_DATABSE` - database name.
+Edit and configure the `.env` file. (`ImageUp/.env`).  
 
+`NODE_ENV` - Can be set to either `development` or `production`  
+- When set to developoment, only the back-end API will be served  
+- When set to production, the static front-end files located in `ImageUp/server/public`  will be served along with the back-end API  
 
-Finally, run the program
+`PORT` - The port on which the API will be served (and front-end if NODE_ENV is set to production)  
+
+`UPLOAD_DIR` - Directory where uploaded images will be stored. Keep in mind that ANY files in this directory will publicly available.  
+
+`DB_HOST` - URL to a Mariadb server  
+`DB_USER` - DB Username  
+`DB_PASSWORD` - DB Password  
+`DB_DATABSE` - DB Name  
+
+### Database
+This application requires a connection to a Mariadb server. You must manually create a database in it before starting the application.
+```sql
+CREATE DATABASE imageup;
+```
+The name can be anything, but it must match the name in your `.env` file.
+
+## Running the server
+If `NODE_ENV` is set to `production`
 ```bash
 npm run start
 ```
-
-## Usage
-```
+The application should now be up and running.
 
 
+If `NODE_ENV` is set to `development` then you must also simultaneously host the front-end in another terminal session
+```bash
+cd ImageUp/client
+npm run serve
 ```
