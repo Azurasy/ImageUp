@@ -1,5 +1,9 @@
 require('dotenv').config();
 
+// fs
+var fs = require('fs');
+if (!fs.existsSync('./uploads')) fs.mkdirSync('./uploads');
+
 // express
 const express = require('express');
 const app = express();
