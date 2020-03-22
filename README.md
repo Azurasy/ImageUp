@@ -14,22 +14,10 @@ Download project files
 git clone https://github.com/Onusai/ImageUp.git
 ```
 
-### Build static front-end files
-Install frontend dependenices
-```bash
-cd ImageUp/client
-sudo npm i -g @vue/cli
-npm install
-```
-Build
-```bash
-npm run build
-```
-The files will output into `ImageUp/server/public`
-### Backend setup
+### Backend (server) setup
 Install backend dependencies
 ```bash
-cd ImageUp/server
+cd ImageUp
 npm install
 ```
 Edit and configure the `.env` file. (`ImageUp/.env`).  
@@ -53,6 +41,20 @@ This application requires a connection to a Mariadb server. You must manually cr
 CREATE DATABASE imageup;
 ```
 The name can be anything, but it must match the name in your `.env` file.
+
+### Build static front-end files
+Install frontend dependenices
+```bash
+cd ImageUp/client
+sudo npm i -g @vue/cli
+npm install
+```
+Build
+```bash
+npm run build
+```
+The files will output into `ImageUp/server/public`
+
 
 ## Running the server
 If `NODE_ENV` is set to `production`
