@@ -2,6 +2,7 @@
 node_modules
 /front-vue/dist
 /back-api/uploads/*
+/back-api/app.config.js
 
 # local env files
 .env.local
