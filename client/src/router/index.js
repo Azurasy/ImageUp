@@ -3,6 +3,7 @@ import VueRouter from "vue-router";
 
 import Home from "../views/Home";
 import Upload from "../views/Upload";
+import ImageView from "../views/ImageView";
 import PageNotFound from "../views/PageNotFound";
 
 Vue.use(VueRouter);
@@ -19,14 +20,20 @@ const routes = [
     component: Upload
   },
   {
+    path: "/i/:id",
+    name: "image",
+    component: ImageView
+  },
+  {
     path: "/404",
     nmae: "404",
     component: PageNotFound
-  },
+  }
+  /*
   {
     path: "*",
     redirect: "/404"
-  }
+  }*/
 ];
 
 const router = new VueRouter({

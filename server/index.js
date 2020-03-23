@@ -18,10 +18,11 @@ app.use(bodyParser.urlencoded({extended: true}));
 
 // serve uploads folder
 if (!fs.existsSync(process.env.UPLOAD_DIR)) fs.mkdirSync(process.env.UPLOAD_DIR);
-app.use('/i', express.static(process.env.UPLOAD_DIR));
+app.use('/img', express.static(process.env.UPLOAD_DIR));
 
 // routes
-app.use('/api/upload', require('./routes/upload'));
+app.use('/api/upload', require('./routes/upload.js'));
+app.use('/api/imgdata', require('./routes/imgdata.js'))
 
 // serve SPA from public directory
 if (process.env.NODE_ENV == 'production') {

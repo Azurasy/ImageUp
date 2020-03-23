@@ -44,13 +44,14 @@ export default {
       formData.append("options", JSON.stringify(this.options));
 
       axios
-        .post(`api/upload`, formData, {
+        .post(`/api/upload`, formData, {
           headers: {
             "Content-Type": "multipart/form-data"
           }
         })
-        .then(() => {
+        .then(res => {
           console.log(`Upload Successful`);
+          console.log(res.data.uuid);
         })
         .catch(res => {
           console.log(`Upload Failed!  ${res}`);

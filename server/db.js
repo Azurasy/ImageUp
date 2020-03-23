@@ -55,7 +55,7 @@ function init() {
                     exposure VARCHAR(8),
                     expiration INT UNSIGNED,
                     filename VARCHAR(100),
-                    uuid VARCHAR(8),
+                    uuid VARCHAR(14),
                     PRIMARY KEY (id)
                 );
                 `)
