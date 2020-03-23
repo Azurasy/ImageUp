@@ -1,7 +1,7 @@
 <template>
   <div v-if="data">
     <Header :title="data.title" />
-    <img v-if="data" :src="'/img/' + data.uuid + data.file_ext" />
+    <img v-if="data.uuid" :src="'/img/' + data.uuid + data.file_ext" />
   </div>
 </template>
 
@@ -26,7 +26,7 @@ export default {
       .get(`/api/imgdata/${this.$route.params.id}`)
       .then(res => {
         this.data = res.data.data;
-        console.log(res.data.data);
+        if (!this.data) this.data = { title: "Image not found" };
       })
       .catch(err => console.log(err));
   },

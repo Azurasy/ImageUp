@@ -28,12 +28,11 @@ const routes = [
     path: "/404",
     nmae: "404",
     component: PageNotFound
-  }
-  /*
+  },
   {
     path: "*",
     redirect: "/404"
-  }*/
+  }
 ];
 
 const router = new VueRouter({

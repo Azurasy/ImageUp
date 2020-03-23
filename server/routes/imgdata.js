@@ -13,7 +13,6 @@ router.get('/:id', function (req, res) {
                 .then((rows) => {
                     if (rows.length > 0) {
                         res.json({data: rows[0]});
-                        console.log(rows[0]);
                     }
                     else res.json({data: null});
                 })
