@@ -7,7 +7,7 @@ Vue.use(VueCookies);
 
 export default new Vuex.Store({
   state: {
-    theme: 'light',
+    theme: "light",
     reload: false
   },
   mutations: {

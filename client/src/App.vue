@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <div id="bg" :class="this.$store.getters.theme"/>
+    <div id="bg" :class="this.$store.getters.theme" />
     <NavBar />
     <div :class="['view', this.$store.getters.theme]">
       <div :class="['page', this.$store.getters.theme]">
@@ -20,7 +20,7 @@ export default {
   },
   created() {
     if (this.$cookies.isKey("theme")) {
-      this.$store.dispatch('setTheme', this.$cookies.get("theme"));
+      this.$store.dispatch("setTheme", this.$cookies.get("theme"));
     }
   }
 };
@@ -109,7 +109,6 @@ body,
   z-index: -2;
   background-color: white;
 }
-
 
 #bg.dark {
   background-color: #333940;
