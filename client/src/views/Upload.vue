@@ -52,6 +52,7 @@ export default {
         .then(res => {
           console.log(`Upload Successful`);
           console.log(res.data.uuid);
+          this.$router.push(`/i/${res.data.uuid}`);
         })
         .catch(res => {
           console.log(`Upload Failed!  ${res}`);

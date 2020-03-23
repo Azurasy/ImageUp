@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <div id="bg" :class="this.$store.getters.theme"/>
     <NavBar />
     <div :class="['view', this.$store.getters.theme]">
       <div :class="['page', this.$store.getters.theme]">
@@ -12,17 +13,14 @@
 <script>
 import NavBar from "./components/NavBar";
 
-let body = document.getElementById("body");
-
 export default {
   name: "App",
   components: {
     NavBar
   },
-  watch: {
-    "$store.getters.theme": function(nV) {
-      if (nV) body.style.backgroundColor = "#333940";
-      else body.style.backgroundColor = "#fff";
+  created() {
+    if (this.$cookies.isKey("theme")) {
+      this.$store.dispatch('setTheme', this.$cookies.get("theme"));
     }
   }
 };
@@ -100,5 +98,20 @@ body,
 .page.dark {
   background-color: #333940;
   box-shadow: -1px 0px 300px -32px rgba(0, 0, 0, 0.3);
+}
+
+#bg {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -2;
+  background-color: white;
+}
+
+
+#bg.dark {
+  background-color: #333940;
 }
 </style>

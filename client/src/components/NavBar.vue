@@ -83,7 +83,7 @@
       <div
         class="navbtn"
         @click="themeDark"
-        v-if="this.$store.getters.theme === ''"
+        v-if="this.$store.getters.theme === 'light'"
       >
         <!-- (DARK) Author: https://www.flaticon.com/authors/freepik-->
         <svg
@@ -113,7 +113,7 @@ export default {
   name: "NavBar",
   methods: {
     themeLight() {
-      this.$store.dispatch("setTheme", "");
+      this.$store.dispatch("setTheme", "light");
     },
     themeDark() {
       this.$store.dispatch("setTheme", "dark");

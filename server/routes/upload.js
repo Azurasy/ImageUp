@@ -24,10 +24,13 @@ router.post('/', upload.single('image'), function (req, res) {
     if (options.expiration == -1) options.expiration = 0;
     else options.expiration += Math.floor(new Date() / 1000);
 
+    const f_ext = path.extname(req.file.originalname);
+    const f_name = path.basename(req.file.originalname, f_ext);
+
     db.getConn()
         .then(conn => {
-            conn.query("INSERT INTO images (user, title, exposure, expiration, filename, uuid) VALUES (?, ?, ?, ?, ?, ?);",
-                    [1, options.name, options.exposure, options.expiration, req.file.originalname, req.file.uuid])
+            conn.query("INSERT INTO images (user, uuid, title, exposure, expiration, file_name, file_ext) VALUES (?, ?, ?, ?, ?, ?, ?);",
+                    [1, req.file.uuid, options.name, options.exposure, options.expiration, f_name, f_ext])
                 .then((res) => { console.log(res); conn.end(); })
                 .catch(err => { console.warn(err); conn.end(); })
         })

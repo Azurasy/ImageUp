@@ -1,7 +1,7 @@
 <template>
   <div v-if="data">
     <Header :title="data.title" />
-    <img v-if="data" :src="'/img/'+data.uuid+'.jpg'">
+    <img v-if="data" :src="'/img/' + data.uuid + data.file_ext" />
   </div>
 </template>
 
@@ -20,8 +20,7 @@ export default {
       data: null
     };
   },
-  methods: {
-  },
+  methods: {},
   created() {
     axios
       .get(`/api/imgdata/${this.$route.params.id}`)
@@ -43,6 +42,7 @@ export default {
 
 <style scoped>
 img {
-  max-width: 100%;
+  max-width: 90%;
+  padding-bottom: 35px;
 }
 </style>

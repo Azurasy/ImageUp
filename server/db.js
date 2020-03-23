@@ -51,11 +51,12 @@ function init() {
                 CREATE TABLE IF NOT EXISTS images (
                     id INT UNSIGNED AUTO_INCREMENT,
                     user INT UNSIGNED,
+                    uuid VARCHAR(14),
                     title VARCHAR(100),
                     exposure VARCHAR(8),
                     expiration INT UNSIGNED,
-                    filename VARCHAR(100),
-                    uuid VARCHAR(14),
+                    file_name VARCHAR(124),
+                    file_ext VARCHAR(16),
                     PRIMARY KEY (id)
                 );
                 `)
