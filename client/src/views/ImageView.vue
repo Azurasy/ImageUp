@@ -44,5 +44,6 @@ export default {
 img {
   max-width: 90%;
   padding-bottom: 35px;
+  max-height: 70vh;
 }
 </style>
