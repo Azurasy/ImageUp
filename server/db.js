@@ -3,14 +3,32 @@ const mariadb = require('mariadb');
 let pool;
 
 function init() {
+
+    // create database if not exists
+    mariadb.createConnection({
+        host: process.env.DB_HOST, 
+        user: process.env.DB_USER, 
+        password: process.env.DB_PASSWORD,
+        })
+        .then(conn => {
+            conn.query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME};`)
+                .then((res) => {conn.end()})
+                .catch(err => {console.warn(err); conn.end();})
+
+            conn.end();
+        })
+        .catch(err => console.log(err));
+
+    // create pool
     pool = mariadb.createPool({
         host: process.env.DB_HOST, 
         user: process.env.DB_USER, 
         password: process.env.DB_PASSWORD,
-        database: process.env.DB_DATABASE,
+        database: process.env.DB_NAME,
         connectionLimit: 5
     });
 
+    // setup database structure
     pool.getConnection()
         .then(conn => {
             conn.query(`

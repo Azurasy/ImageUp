@@ -33,14 +33,11 @@ Edit and configure the `.env` file. (`ImageUp/.env`).
 `DB_HOST` - URL to a Mariadb server  
 `DB_USER` - DB Username  
 `DB_PASSWORD` - DB Password  
-`DB_DATABSE` - DB Name  
+`DB_NAME` - DB Name  
 
 ### Database
-This application requires a connection to a Mariadb server. You must manually create a database in it before starting the application.
-```sql
-CREATE DATABASE imageup;
-```
-The name can be anything, but it must match the name in your `.env` file.
+This application requires a connection to a Mariadb server.
+It will automatically create a database inside it, with the name specified in the .env file.
 
 ### Build static front-end files
 Install frontend dependenices
