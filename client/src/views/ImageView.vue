@@ -1,7 +1,7 @@
 <template>
   <div v-if="data">
     <Header :title="data.title" />
-    <!--img v-if="data.uuid" :src="'/img/' + data.uuid + data.file_ext" /-->
+    <img v-if="!loaded" src="@/assets/images/loading.gif" />
     <img id="vimage" src="@/assets/images/blank.png" />
   </div>
 </template>
@@ -18,7 +18,8 @@ export default {
   },
   data: function() {
     return {
-      data: null
+      data: null,
+      loaded: false
     };
   },
   methods: {},
@@ -29,8 +30,9 @@ export default {
         this.data = res.data.data;
         if (this.data) {
           let downloadingImage = new Image();
-          downloadingImage.onload = function() {
-            document.getElementById("vimage").src = this.src;
+          downloadingImage.onload = () => {
+            document.getElementById("vimage").src = downloadingImage.src;
+            this.loaded = true;
           };
           downloadingImage.src = `/img/${this.data.uuid}${this.data.file_ext}`;
         } else this.data = { title: "Image not found" };
