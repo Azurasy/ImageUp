@@ -2,7 +2,7 @@
   <div v-if="data">
     <Header :title="data.title" />
     <!--img v-if="data.uuid" :src="'/img/' + data.uuid + data.file_ext" /-->
-    <img id="vimage" src="@/assets/images/loading.gif" />
+    <img id="vimage" src="@/assets/images/blank.png" />
   </div>
 </template>
 
