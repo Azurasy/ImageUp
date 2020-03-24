@@ -24,8 +24,8 @@ npm install
 Edit and configure the `.env` file. (`ImageUp/.env`).  
 
 `NODE_ENV` - Can be set to either `development` or `production`  
-- When set to developoment, only the back-end API will be served  
-- When set to production, the static front-end files located in `ImageUp/server/public`  will be served along with the back-end API  
+- When set to `developoment`, only the back-end API will be served  
+- When set to `production`, the static front-end files located in `ImageUp/server/public`  will be served along with the back-end API (default)  
 
 `PORT` - The port on which the API will be served (and front-end if NODE_ENV is set to production)  
 
@@ -55,7 +55,7 @@ The files will output into `ImageUp/server/public`
 
 
 ## Running the server
-If `NODE_ENV` is set to `production`
+If `NODE_ENV` is set to `production` then it is expected that you have already built the static front-end files as described in the previous section.
 ```bash
 npm run start
 ```
