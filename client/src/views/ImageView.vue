@@ -1,7 +1,8 @@
 <template>
   <div v-if="data">
     <Header :title="data.title" />
-    <img v-if="data.uuid" :src="'/img/' + data.uuid + data.file_ext" />
+    <!--img v-if="data.uuid" :src="'/img/' + data.uuid + data.file_ext" /-->
+    <img id="vimage" src="@/assets/images/loading.gif" />
   </div>
 </template>
 
@@ -26,7 +27,13 @@ export default {
       .get(`/api/imgdata/${this.$route.params.id}`)
       .then(res => {
         this.data = res.data.data;
-        if (!this.data) this.data = { title: "Image not found" };
+        if (this.data) {
+          let downloadingImage = new Image();
+          downloadingImage.onload = function() {
+            document.getElementById("vimage").src = this.src;
+          };
+          downloadingImage.src = `/img/${this.data.uuid}${this.data.file_ext}`;
+        } else this.data = { title: "Image not found" };
       })
       .catch(err => console.log(err));
   },
