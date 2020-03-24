@@ -69,7 +69,7 @@ body,
 .view {
   height: 100%;
   padding-left: 50px;
-  background-color: white;
+  background-color: #eee;
   color: #2c3e50;
 }
 @media screen and (max-width: 430px) {
@@ -89,15 +89,15 @@ body,
   height: auto;
   min-height: 100% !important;
   margin: auto;
-  background-color: white;
-  box-shadow: -1px 0px 300px -32px rgba(0, 0, 0, 0.15);
+  background-color: #eee;
+  box-shadow: -1px 0px 70px -32px rgba(0, 0, 0, 0.15);
   border-radius: 50px;
   padding: 0 10px;
 }
 
 .page.dark {
   background-color: #333940;
-  box-shadow: -1px 0px 300px -32px rgba(0, 0, 0, 0.3);
+  box-shadow: -1px 0px 70px -32px rgba(0, 0, 0, 0.3);
 }
 
 #bg {
@@ -107,7 +107,7 @@ body,
   width: 100%;
   height: 100%;
   z-index: -2;
-  background-color: white;
+  background-color: #eee;
 }
 
 #bg.dark {
