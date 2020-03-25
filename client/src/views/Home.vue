@@ -7,7 +7,7 @@
       Recently Uploaded
     </h1>
 
-    <!-- Credits to image gallary code: https://uicookies.com/css-image-galleries/ and https://codepen.io/vhanla/pen/PxjZvj -->
+    <!-- Credits for image gallary code: https://uicookies.com/css-image-galleries/ and https://codepen.io/vhanla/pen/PxjZvj -->
     <div class="gallery" id="gallery" ref="gallery">
       <div class="gallery-item" v-for="item in data" :key="item.id">
         <div class="content">
@@ -63,37 +63,19 @@ export default {
         el.style.gridRowEnd =
           "span " + Math.ceil((this.getHeight(item) + gap) / (altura + gap));
       });
-    },
-    updateImages() {
-      this.gallery = this.$refs.gallery;
-      this.resizeAll();
-      /*
-      this.gallery.querySelectorAll("img").forEach(item => {
-        item.classList.add("byebye");
-        if (item.complete) {
-          console.log(item.src);
-        } else {
-          item.addEventListener("load", () => {
-            var altura = this.getVal(this.gallery, "grid-auto-rows");
-            var gap = this.getVal(this.gallery, "grid-row-gap");
-            var gitem = item.parentElement.parentElement;
-            gitem.style.gridRowEnd =
-              "span " +
-              Math.ceil((this.getHeight(gitem) + gap) / (altura + gap));
-            item.classList.remove("byebye");
-          });
-        }
-      });
-      */
-      window.addEventListener("resize", this.resizeAll);
     }
   },
   mounted() {
-    this.updateImages();
+    this.gallery = this.$refs.gallery;
+    this.resizeAll();
+    window.addEventListener("resize", this.resizeAll);
+
+    // temporary hacky workaround
     this.btnClicked();
-    setTimeout(() => {
-      this.resizeAll();
-    }, 500);
+    setTimeout(() => this.resizeAll(), 250);
+    setTimeout(() => this.resizeAll(), 500);
+    setTimeout(() => this.resizeAll(), 750);
+    setTimeout(() => this.resizeAll(), 1000);
   },
   watch: {
     "$store.getters.reload": function(val) {
