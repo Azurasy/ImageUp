@@ -114,12 +114,14 @@ export default {
     grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
   }
 }
+@media (max-width: 660px) {
+  .gallery .content {
+    padding: 2px;
+  }
+}
 @media (max-width: 500px) {
   .gallery {
     grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
-  }
-  .gallery .content {
-    padding: 2px;
   }
 }
 .heading {
