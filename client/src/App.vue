@@ -89,14 +89,14 @@ body,
   height: auto;
   min-height: 100% !important;
   margin: auto;
-  background-color: #eee;
+  background-color: #f4f4f4;
   box-shadow: -1px 0px 70px -32px rgba(0, 0, 0, 0.15);
-  border-radius: 50px;
+  border-radius: 20px;
   padding: 0 10px;
 }
 
 .page.dark {
-  background-color: #333940;
+  background-color: #2d333c;
   box-shadow: -1px 0px 70px -32px rgba(0, 0, 0, 0.3);
 }
 

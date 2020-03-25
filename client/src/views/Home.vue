@@ -3,9 +3,9 @@
     <Header title="ImageUp" />
     <!--button @click="btnClicked">Fetch</button-->
 
-    <h1 style="text-align: left; margin-top: 0; margin-left: 10px;">
+    <p class="heading">
       Recently Uploaded
-    </h1>
+    </p>
 
     <!-- Credits for image gallary code: https://uicookies.com/css-image-galleries/ and https://codepen.io/vhanla/pen/PxjZvj -->
     <div class="gallery" id="gallery" ref="gallery">
@@ -117,5 +117,13 @@ export default {
   .gallery {
     grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
   }
+}
+
+.heading {
+  text-align: left;
+  margin-top: 0;
+  margin-left: 10px;
+  font-family: comfortaa;
+  font-size: 1.5em;
 }
 </style>
