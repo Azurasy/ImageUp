@@ -17,7 +17,6 @@ export default new Vuex.Store({
     },
     setReload(state, val) {
       state.reload = val;
-      console.log(`Reload: ${val}`);
     }
   },
   actions: {

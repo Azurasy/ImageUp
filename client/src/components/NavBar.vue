@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="nav">
+    <div class="nav" style="z-index: 10">
       <div
         :class="['navbtn', { active: this.$route.path === '/' }]"
         @click="navHome"
