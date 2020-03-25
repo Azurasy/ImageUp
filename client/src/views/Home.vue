@@ -72,10 +72,7 @@ export default {
 
     // temporary hacky workaround
     this.btnClicked();
-    setTimeout(() => this.resizeAll(), 250);
-    setTimeout(() => this.resizeAll(), 500);
-    setTimeout(() => this.resizeAll(), 750);
-    setTimeout(() => this.resizeAll(), 1000);
+    for (let i = 0; i < 10; i++) setTimeout(() => this.resizeAll(), i * 250);
   },
   watch: {
     "$store.getters.reload": function(val) {
@@ -112,13 +109,19 @@ export default {
 .gallery .gallery-item:hover {
   transform: scale(1.025);
 }
-
-@media (max-width: 400px) {
+@media (max-width: 880px) {
   .gallery {
-    grid-template-columns: repeat(auto-fill, minmax(50%, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(30%, 1fr));
   }
 }
-
+@media (max-width: 500px) {
+  .gallery {
+    grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
+  }
+  .gallery .content {
+    padding: 2px;
+  }
+}
 .heading {
   text-align: left;
   margin-top: 0;

@@ -173,7 +173,7 @@ export default {
   height: 100%;
 }
 
-@media screen and (max-width: 430px) {
+@media (max-width: 430px) {
   .nav {
     flex-direction: row;
     height: auto;
