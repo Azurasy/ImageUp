@@ -3,17 +3,18 @@
     <Header title="ImageUp" />
     <!--button @click="btnClicked">Fetch</button-->
 
-    <p class="heading">
+    <p class="home_heading">
       Recently Uploaded
     </p>
 
     <!-- Credits for image gallary code: https://uicookies.com/css-image-galleries/ and https://codepen.io/vhanla/pen/PxjZvj -->
     <div class="gallery" id="gallery" ref="gallery">
-      <div class="gallery-item" v-for="item in data" :key="item.id">
-        <div class="content">
-          <img :src="`${item.base_url}${item.uuid}${item.file_ext}`" alt="" />
-        </div>
-      </div>
+      <ImageTile
+        v-for="item in data"
+        :key="item.uuid"
+        :data="item"
+        @image_loaded="resizeAll"
+      />
     </div>
   </div>
 </template>
@@ -22,11 +23,13 @@
 import axios from "axios";
 
 import Header from "../components/Header";
+import ImageTile from "../components/home/ImageTile";
 
 export default {
   name: "Home",
   components: {
-    Header
+    Header,
+    ImageTile
   },
   data: function() {
     return {
@@ -56,6 +59,7 @@ export default {
       return item.querySelector(".content").getBoundingClientRect().height;
     },
     resizeAll() {
+      console.log("ca;lled");
       var altura = this.getVal(this.gallery, "grid-auto-rows");
       var gap = this.getVal(this.gallery, "grid-row-gap");
       this.gallery.querySelectorAll(".gallery-item").forEach(item => {
@@ -72,7 +76,6 @@ export default {
 
     // temporary hacky workaround
     this.btnClicked();
-    for (let i = 0; i < 10; i++) setTimeout(() => this.resizeAll(), i * 250);
   },
   watch: {
     "$store.getters.reload": function(val) {
@@ -84,30 +87,13 @@ export default {
 };
 </script>
 
-<style scoped>
+<style>
 .gallery {
   display: grid;
   grid-column-gap: 8px;
   grid-row-gap: 0px;
   grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
   grid-auto-rows: 8px;
-}
-.gallery img {
-  max-width: 100%;
-  border-radius: 5px;
-  transition: all 1.5s ease;
-}
-.gallery .content {
-  padding: 4px;
-}
-.gallery .gallery-item {
-  transition: grid-row-start 300ms linear;
-  transition: transform 300ms ease;
-  transition: all 0.5s ease;
-  cursor: pointer;
-}
-.gallery .gallery-item:hover {
-  transform: scale(1.025);
 }
 @media (max-width: 880px) {
   .gallery {
@@ -124,7 +110,7 @@ export default {
     grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
   }
 }
-.heading {
+.home_heading {
   text-align: left;
   margin-top: 0;
   margin-left: 10px;
