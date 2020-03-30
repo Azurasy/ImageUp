@@ -11,7 +11,7 @@
     <div class="gallery" id="gallery" ref="gallery">
       <div class="gallery-item" v-for="item in data" :key="item.id">
         <div class="content">
-          <img :src="`/img/${item.uuid}${item.file_ext}`" alt="" />
+          <img :src="`${item.base_url}${item.uuid}${item.file_ext}`" alt="" />
         </div>
       </div>
     </div>

@@ -52,11 +52,12 @@ function init() {
                     id INT UNSIGNED AUTO_INCREMENT,
                     user INT UNSIGNED,
                     uuid VARCHAR(14),
-                    title VARCHAR(100),
+                    title VARCHAR(128),
                     exposure VARCHAR(8),
                     expiration INT UNSIGNED,
-                    file_name VARCHAR(124),
+                    file_name VARCHAR(128),
                     file_ext VARCHAR(16),
+                    base_url VARCHAR(128),
                     PRIMARY KEY (id)
                 );
                 `)
