@@ -2,7 +2,7 @@
   <div class="gallery-item">
     <div class="content">
       <a :href="page_url" @click.prevent="clicked">
-        <img :id="'img-' + data.uuid" alt="" />
+        <img :id="'img-' + data.uuid" src="@/assets/images/blank.png" alt="" />
       </a>
     </div>
   </div>
@@ -32,7 +32,9 @@ export default {
       document.getElementById(`img-${this.data.uuid}`).src =
         downloadingImage.src;
       this.loaded = true;
-      setTimeout(() => this.$emit("image_loaded"), 500);
+      for (let i = 0; i < 8; i++) {
+        setTimeout(() => this.$emit("image_loaded"), i * 250);
+      }
     };
     downloadingImage.src = this.img_url;
   }
