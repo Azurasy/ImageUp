@@ -48,6 +48,7 @@ export default {
           if (data) {
             data.forEach(img => {
               img.loaded = false;
+              img.added = false;
               img.downloadingImage = new Image();
               img.downloadingImage.onload = () => {
                 //console.log(`${downloadingImage.width}x${downloadingImage.height}`);
@@ -80,15 +81,14 @@ export default {
     updateLoaded() {
       for (let i = 0; i < this.data.length; i++) {
         let img = this.data[i];
-        if (img.loaded) {
-          if (i == 0 || this.data[i - 1].loaded == true) {
-            if (!this.images.includes(img)) {
-              this.images.push(img);
-            }
+        if (img.loaded && !img.added) {
+          if (i == 0 || this.images.includes(this.data[i - 1])) {
+            this.images.push(img);
+            img.added = true;
           }
         }
       }
-      this.resizeAll()
+      this.resizeAll();
       setTimeout(() => this.resizeAll(), 500);
     }
   },
