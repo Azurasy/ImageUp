@@ -19,7 +19,7 @@
         <div>
           <p>Expiration</p>
           <select id="file_expiration">
-            <option value="-1">Never</option>
+            <option value="0">Never</option>
             <option value="60">Minute</option>
             <option value="3600">Hour</option>
             <option value="86400">Day</option>

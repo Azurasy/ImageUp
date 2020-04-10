@@ -21,8 +21,7 @@ router.post('/', upload.single('image'), function (req, res) {
     let options = JSON.parse(req.body.options);
     //console.log(`${options.name} - ${options.exposure} - ${options.expiration} - ${req.file.originalname}`);
 
-    if (options.expiration == -1) options.expiration = 0;
-    else options.expiration += Math.floor(new Date() / 1000);
+    if (options.expiration != 0) options.expiration += Math.floor(new Date() / 1000);
 
     const f_ext = path.extname(req.file.originalname);
     const f_name = path.basename(req.file.originalname, f_ext);
