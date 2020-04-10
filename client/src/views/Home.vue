@@ -131,7 +131,7 @@ export default {
     padding: 2px;
   }
 }
-@media (max-width: 500px) {
+@media (max-width: 570px) {
   .gallery {
     grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
   }
