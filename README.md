@@ -21,7 +21,9 @@ Install backend dependencies
 cd ImageUp
 npm install
 ```
-Edit and configure the `.env` file. (`ImageUp/.env`).  
+
+Rename the `.env_sample` file to `.env`. (`ImageUp/.env_sample` to `ImageUp/.env`)  
+Edit and configure the `.env` file.
 
 `NODE_ENV` - Can be set to either `development` or `production`  
 - When set to `developoment`, only the back-end API will be served  
