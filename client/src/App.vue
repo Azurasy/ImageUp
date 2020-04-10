@@ -4,7 +4,7 @@
     <NavBar />
     <div :class="['view', this.$store.getters.theme]">
       <div :class="['page', this.$store.getters.theme]">
-        <router-view />
+        <router-view :key="$route.fullPath" />
       </div>
     </div>
   </div>

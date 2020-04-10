@@ -21,22 +21,13 @@ export default {
   methods: {
     clicked() {
       this.$router.push(this.page_url);
-    },
-    loaded() {
-      console.log(this.data.file_name);
     }
   },
-  created() {
-    let downloadingImage = new Image();
-    downloadingImage.onload = () => {
-      document.getElementById(`img-${this.data.uuid}`).src =
-        downloadingImage.src;
-      this.loaded = true;
-      for (let i = 0; i < 8; i++) {
-        setTimeout(() => this.$emit("image_loaded"), i * 250);
-      }
-    };
-    downloadingImage.src = this.img_url;
+  mounted() {
+    let img = document.getElementById(`img-${this.data.uuid}`);
+    img.src = this.data.downloadingImage.src;
+    setTimeout(() => (img.style.visibility = "visible"), 500);
+    this.$emit("image_loaded");
   }
 };
 </script>
@@ -46,6 +37,13 @@ img {
   max-width: 100%;
   border-radius: 5px;
   transition: all 1.5s ease;
+  visibility: hidden;
+
+  -webkit-animation: fadein 2s; /* Safari, Chrome and Opera > 12.1 */
+  -moz-animation: fadein 2s; /* Firefox < 16 */
+  -ms-animation: fadein 2s; /* Internet Explorer */
+  -o-animation: fadein 2s; /* Opera < 12.1 */
+  animation: fadein 2s;
 }
 .content {
   padding: 4px;
@@ -58,5 +56,14 @@ img {
 }
 .gallery-item:hover {
   transform: scale(1.025);
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 </style>

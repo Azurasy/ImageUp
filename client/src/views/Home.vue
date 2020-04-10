@@ -10,7 +10,7 @@
     <!-- Credits for image gallary code: https://uicookies.com/css-image-galleries/ and https://codepen.io/vhanla/pen/PxjZvj -->
     <div class="gallery" id="gallery" ref="gallery">
       <ImageTile
-        v-for="item in data"
+        v-for="item in images"
         :key="item.uuid"
         :data="item"
         @image_loaded="resizeAll"
@@ -35,6 +35,7 @@ export default {
     return {
       index: -1,
       data: [],
+      images: [],
       gallery: null
     };
   },
@@ -45,10 +46,19 @@ export default {
         .then(res => {
           let data = res.data.data;
           if (data) {
+            data.forEach(img => {
+              img.loaded = false;
+              img.downloadingImage = new Image();
+              img.downloadingImage.onload = () => {
+                //console.log(`${downloadingImage.width}x${downloadingImage.height}`);
+                img.loaded = true;
+                this.updateLoaded();
+              };
+              img.downloadingImage.src = img.base_url + img.uuid + img.file_ext;
+            });
+
             this.data = [...this.data, ...data];
-            //this.updateImages();
           }
-          console.log(data);
         })
         .catch(err => console.log(err));
     },
@@ -59,7 +69,6 @@ export default {
       return item.querySelector(".content").getBoundingClientRect().height;
     },
     resizeAll() {
-      console.log("ca;lled");
       var altura = this.getVal(this.gallery, "grid-auto-rows");
       var gap = this.getVal(this.gallery, "grid-row-gap");
       this.gallery.querySelectorAll(".gallery-item").forEach(item => {
@@ -67,6 +76,20 @@ export default {
         el.style.gridRowEnd =
           "span " + Math.ceil((this.getHeight(item) + gap) / (altura + gap));
       });
+    },
+    updateLoaded() {
+      for (let i = 0; i < this.data.length; i++) {
+        let img = this.data[i];
+        if (img.loaded) {
+          if (i == 0 || this.data[i - 1].loaded == true) {
+            if (!this.images.includes(img)) {
+              this.images.push(img);
+            }
+          }
+        }
+      }
+      this.resizeAll()
+      setTimeout(() => this.resizeAll(), 500);
     }
   },
   mounted() {
@@ -82,6 +105,9 @@ export default {
       if (val) {
         this.$store.dispatch("setReload", false);
       }
+    },
+    "$route.fullPath": function(val) {
+      if (val === "/") this.resizeAll();
     }
   }
 };
