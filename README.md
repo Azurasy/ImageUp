@@ -1,7 +1,7 @@
 
 # ImageUp
 Image hosting and sharing web application. Uploaded images recieve a unique link for ease of sharing.  
-In development [example website](http://ec2-34-205-141-243.compute-1.amazonaws.com) as of 3/23/25
+In development [example website](http://ec2-34-205-141-243.compute-1.amazonaws.com) as of 4/10/20
 
 ## Build & Run (ubuntu)
 Install NodeJS
