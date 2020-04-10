@@ -3,7 +3,6 @@
     <Header title="Upload" />
     <SelectFile @selected="selectedFile" v-if="state == 'select'" />
     <SelectOptions @selected="selectedOptions" v-if="state == 'options'" />
-    <UploadingFile v-if="state == 'uploading'" />
   </div>
 </template>
 
@@ -13,15 +12,13 @@ import axios from "axios";
 import Header from "../components/Header";
 import SelectFile from "../components/upload/SelectFile";
 import SelectOptions from "../components/upload/SelectOptions";
-import UploadingFile from "../components/upload/UploadingFile";
 
 export default {
   name: "Upload",
   components: {
     Header,
     SelectFile,
-    SelectOptions,
-    UploadingFile
+    SelectOptions
   },
   data: function() {
     return {
@@ -37,7 +34,6 @@ export default {
       console.log(`Selected: ${file.name}`);
     },
     selectedOptions(options) {
-      this.state = "uploading";
       this.options = options;
       console.log(
         `${options.name} - ${options.exposure} - ${options.expiration}`

@@ -30,7 +30,8 @@
       </div>
 
       <div :class="['upload-btn', this.$store.getters.theme]" @click="upload">
-        <p>Upload</p>
+        <p v-if="!uploading">Upload</p>
+        <p v-else>Uploading...</p>
       </div>
     </div>
   </div>
@@ -39,15 +40,30 @@
 <script>
 export default {
   name: "SelectOptions",
+  data: function() {
+    return {
+      uploading: false
+    };
+  },
   methods: {
     upload() {
-      let name = document.getElementById("file_name").value;
-      if (!name) name = "Untitled";
-      let exposure = document.getElementById("file_exposure").value;
-      let expiration = parseInt(
-        document.getElementById("file_expiration").value
-      );
-      this.$emit("selected", { name, exposure, expiration });
+      if (!this.uploading) {
+        this.uploading = true;
+        document.getElementById("file_name").disabled = true;
+        document.getElementById("file_exposure").disabled = true;
+        document.getElementById("file_expiration").disabled = true;
+
+        let name = document.getElementById("file_name").value;
+        if (!name) name = "Untitled";
+
+        let exposure = document.getElementById("file_exposure").value;
+
+        let expiration = parseInt(
+          document.getElementById("file_expiration").value
+        );
+
+        this.$emit("selected", { name, exposure, expiration });
+      }
     }
   }
 };
