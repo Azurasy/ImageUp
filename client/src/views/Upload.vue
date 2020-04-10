@@ -1,8 +1,9 @@
 <template>
   <div class="content">
     <Header title="Upload" />
-    <SelectFile @selected="selectedFile" v-if="!file" />
-    <SelectOptions @selected="selectedOptions" v-if="file" />
+    <SelectFile @selected="selectedFile" v-if="state == 'select'" />
+    <SelectOptions @selected="selectedOptions" v-if="state == 'options'" />
+    <UploadingFile v-if="state == 'uploading'" />
   </div>
 </template>
 
@@ -12,26 +13,31 @@ import axios from "axios";
 import Header from "../components/Header";
 import SelectFile from "../components/upload/SelectFile";
 import SelectOptions from "../components/upload/SelectOptions";
+import UploadingFile from "../components/upload/UploadingFile";
 
 export default {
   name: "Upload",
   components: {
     Header,
     SelectFile,
-    SelectOptions
+    SelectOptions,
+    UploadingFile
   },
   data: function() {
     return {
       file: null,
-      options: null
+      options: null,
+      state: "select"
     };
   },
   methods: {
     selectedFile(file) {
       this.file = file;
+      this.state = "options";
       console.log(`Selected: ${file.name}`);
     },
     selectedOptions(options) {
+      this.state = "uploading";
       this.options = options;
       console.log(
         `${options.name} - ${options.exposure} - ${options.expiration}`
@@ -63,6 +69,7 @@ export default {
     "$store.getters.reload": function(val) {
       if (val) {
         this.file = null;
+        this.state = "select";
         this.$store.dispatch("setReload", false);
       }
     }
