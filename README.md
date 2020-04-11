@@ -25,13 +25,15 @@ npm install
 Rename the `.env_sample` file to `.env`. (`ImageUp/.env_sample` to `ImageUp/.env`)  
 Edit and configure the `.env` file.
 
-`NODE_ENV` - Can be set to either `development` or `production`  
-- When set to `developoment`, only the back-end API will be served  
-- When set to `production`, the static front-end files located in `ImageUp/server/public`  will be served along with the back-end API (default)  
-
-`PORT` - The port on which the API will be served (and front-end if NODE_ENV is set to production)  
+`NODE_ENV` - The envirnoment where the application is located can be set to either development or production. 
+- When set to `production` (or `prod` or `p`), the entire application will be served. This includes the static front-end files located in `ImageUp/server/public` along with the back-end API
+- When set to `developoment` (or anything other than production), only the back-end API will be served.  
 
 `UPLOAD_DIR` - Directory where uploaded images will be stored. Keep in mind that ANY files in this directory will publicly available.  
+
+`PROD_PORT` - The port on which the application will be served when `NODE_ENV` is set to production.  
+`DEV_PORT` - The port on which the application will be served when `NODE_ENV` is set to development.  
+
 
 `DB_HOST` - URL to a Mariadb server  
 `DB_USER` - DB Username  

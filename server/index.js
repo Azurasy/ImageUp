@@ -6,6 +6,7 @@ const fs = require('fs');
 const db = require('./db.js');
 
 require('dotenv').config();
+const isEnvProduction = ['production', 'prod', 'p'].includes(process.env.NODE_ENV);
 
 db.init();
 
@@ -26,12 +27,14 @@ app.use('/api/imgdata', require('./routes/imgdata.js'))
 app.use('/api/recent', require('./routes/recent.js'))
 
 // serve SPA from public directory
-if (process.env.NODE_ENV == 'production') {
+if (isEnvProduction) {
     app.use(express.static(path.join(__dirname, 'public')));
     app.get(/.*/, (req, res) => res.sendFile(path.join(__dirname, 'public', 'index.html')));
 }
 
-app.listen(process.env.PORT, err => {
-    if (err) console.log(err);
-    else console.log(`Server started on http://localhost:${process.env.PORT}`);
+const PORT = isEnvProduction ? process.env.PROD_PORT : process.env.DEV_PORT;
+
+app.listen(PORT, err => {
+  if (err) console.log(err);
+  else console.log(`Server started on http://localhost:${PORT}`);
 });

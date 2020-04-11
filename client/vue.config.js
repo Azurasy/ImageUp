@@ -6,10 +6,10 @@ module.exports = {
   devServer: {
     proxy: {
       "/api/*": {
-        target: `http://localhost:${process.env.PORT}`
+        target: `http://localhost:${process.env.DEV_PORT}`
       },
       "/img/*": {
-        target: `http://localhost:${process.env.PORT}`
+        target: `http://localhost:${process.env.DEV_PORT}`
       }
     }
   }
