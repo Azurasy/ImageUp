@@ -2,7 +2,11 @@
   <div>
     <div class="nav" style="z-index: 10">
       <div
-        :class="['navbtn', { active: this.$route.path === '/' }]"
+        :class="[
+          'navbtn',
+          { active: this.$route.path === '/' },
+          { 'no-touch': !touchscreen }
+        ]"
         @click="navHome"
       >
         <!-- (HOME) Author: https://www.flaticon.com/authors/freepik -->
@@ -19,7 +23,11 @@
       </div>
 
       <div
-        :class="['navbtn', { active: this.$route.path === '/upload' }]"
+        :class="[
+          'navbtn',
+          { active: this.$route.path === '/upload' },
+          { 'no-touch': !touchscreen }
+        ]"
         @click="navUpload"
       >
         <!-- (UPLOAD) Author: https://www.flaticon.com/authors/roundicons -->
@@ -56,7 +64,7 @@
       </div>
 
       <div
-        class="navbtn"
+        :class="['navbtn', { 'no-touch': !touchscreen }]"
         @click="themeLight"
         v-if="this.$store.getters.theme === 'dark'"
       >
@@ -81,7 +89,7 @@
       </div>
 
       <div
-        class="navbtn"
+        :class="['navbtn', { 'no-touch': !touchscreen }]"
         @click="themeDark"
         v-if="this.$store.getters.theme === 'light'"
       >
@@ -111,6 +119,11 @@
 <script>
 export default {
   name: "NavBar",
+  data: function() {
+    return {
+      touchscreen: false
+    };
+  },
   methods: {
     themeLight() {
       this.$store.dispatch("setTheme", "light");
@@ -126,6 +139,12 @@ export default {
       if (this.$route.path === "/upload")
         this.$store.dispatch("setReload", true);
       else this.$router.push("/upload");
+    }
+  },
+  mounted() {
+    if ("ontouchstart" in document.documentElement) {
+      this.touchscreen = true;
+      console.log("touchscreen");
     }
   }
 };
@@ -156,13 +175,13 @@ export default {
   fill: #a4abbb;
 }
 
-.navbtn:hover {
+.navbtn.no-touch:hover {
   color: white;
   background-color: rgb(59, 73, 85);
   cursor: pointer;
 }
 
-.navbtn:hover svg {
+.navbtn.no-touch:hover svg {
   fill: white;
 }
 
