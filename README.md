@@ -22,7 +22,7 @@ cd ImageUp
 npm install
 ```
 
-Rename the `.env_sample` file to `.env`. (`ImageUp/.env_sample` to `ImageUp/.env`)  
+Create a copy of the `.env_sample` file (`ImageUp/.env_sample`) and rename it to `.env` (`ImageUp/.env`) 
 Edit and configure the `.env` file.
 
 `NODE_ENV` - The envirnoment where the application is located can be set to either development or production. 
