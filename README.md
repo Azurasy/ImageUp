@@ -22,9 +22,9 @@ cd ImageUp
 npm install
 ```
 
-Create a copy of the `.env_sample` file (`ImageUp/.env_sample`) and rename it to `.env` (`ImageUp/.env`) 
-Edit and configure the `.env` file.
-
+Create a copy of the `.env_sample` file (`ImageUp/.env_sample`) and rename it to `.env` (`ImageUp/.env`)  
+Edit and configure the `.env` file.  
+  
 `NODE_ENV` - The envirnoment where the application is located can be set to either development or production. 
 - When set to `production` (or `prod` or `p`), the entire application will be served. This includes the static front-end files located in `ImageUp/server/public` along with the back-end API
 - When set to `developoment` (or anything other than production), only the back-end API will be served.  
