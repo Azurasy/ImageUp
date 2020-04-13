@@ -51,14 +51,7 @@
         </svg>
       </div>
 
-      <div
-        :class="[
-          'navbtn',
-          { active: this.$route.path === '/account' },
-          { 'no-touch': !touchscreen }
-        ]"
-        @click="navAccount"
-      >
+      <div class="navbtn">
         <!-- (PROFILE) Author: https://www.flaticon.com/authors/freepik-->
         <svg viewBox="-42 0 512 512.002" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -146,11 +139,6 @@ export default {
       if (this.$route.path === "/upload")
         this.$store.dispatch("setReload", true);
       else this.$router.push("/upload");
-    },
-    navAccount() {
-      if (this.$route.path === "/account")
-        this.$store.dispatch("setReload", true);
-      else this.$router.push("/account");
     }
   },
   mounted() {
