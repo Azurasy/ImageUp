@@ -5,6 +5,7 @@ import Home from "../views/Home";
 import Upload from "../views/Upload";
 import ImageView from "../views/ImageView";
 import PageNotFound from "../views/PageNotFound";
+import Account from "../views/Account";
 
 Vue.use(VueRouter);
 
@@ -23,6 +24,11 @@ const routes = [
     path: "/i/:id",
     name: "image",
     component: ImageView
+  },
+  {
+    path: "/account",
+    name: "account",
+    component: Account
   },
   {
     path: "/404",
