@@ -16,7 +16,7 @@ router.get('/:index', function (req, res) {
                         WHERE exposure = 'public'
                         AND (expiration = 0 OR expiration > ?)
                         ORDER BY id DESC
-                        LIMIT 20
+                        LIMIT 50
                         ;`, [Math.floor(new Date() / 1000)])
                 .then((rows) => {
                     if (rows.length > 0) {
