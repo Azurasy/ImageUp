@@ -8,6 +8,7 @@
         @dragleave="leave"
         v-cloak
       >
+        <div class="drop-overlay"></div>
         <div
           :class="['dropframe', { hovering: hovering }, { invalid: invalid }]"
         >
@@ -17,6 +18,7 @@
           </div>
         </div>
       </div>
+
       <div :class="['manual', this.$store.getters.theme]" @click="manual">
         <div class="manual-or">
           <span>or</span>
@@ -97,9 +99,11 @@ export default {
 }
 
 .dropcontainer {
+  position: relative;
   background-color: #3b444d;
   height: 250px;
   border-radius: 20px;
+  z-index: 1;
 }
 
 .dropcontainer.hovering {
@@ -118,6 +122,7 @@ export default {
   left: 7%;
   top: 10%;
   border-radius: 10px;
+  position: relative;
 }
 
 .dropframe.hovering {
@@ -133,6 +138,7 @@ export default {
   font-size: 1.8em;
   opacity: 0.86;
   font-weight: bold;
+  user-select: none;
 }
 
 .manual {
@@ -141,6 +147,7 @@ export default {
   border-radius: 20px;
   color: white;
   font-weight: bold;
+  user-select: none;
 }
 
 .manual.dark {
@@ -178,5 +185,15 @@ export default {
 
 .manual.dark span {
   background-color: #57606a;
+}
+
+.drop-overlay {
+  position: absolute;
+  z-index: 2;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 250px;
+  max-width: 350px;
 }
 </style>

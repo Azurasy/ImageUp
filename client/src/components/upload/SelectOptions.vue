@@ -102,6 +102,7 @@ p {
   background-color: #898e94;
   border-radius: 20px;
   color: white;
+  user-select: none;
 }
 
 .upload-btn.dark {
@@ -125,6 +126,7 @@ input {
   font-weight: bold;
   font-family: "Comfortaa";
   width: 150px;
+  user-select: none;
 }
 
 select {
@@ -136,5 +138,6 @@ select {
   border-radius: 2px;
   appearance: none;
   font-weight: bold;
+  user-select: none;
 }
 </style>

@@ -29,6 +29,14 @@ export default {
     showSignup() {
       this.tab = "signup";
     }
+  },
+  watch: {
+    "$store.getters.reload": function(val) {
+      if (val) {
+        this.$store.dispatch("setReload", false);
+        this.tab = "login";
+      }
+    }
   }
 };
 </script>
