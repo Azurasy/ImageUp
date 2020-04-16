@@ -94,6 +94,7 @@ input {
   margin-top: 1em;
   box-shadow: 0 4px 102px 0 rgba(0, 0, 0, 0.01), 0 1px 2px 0 rgba(0, 0, 0, 0.1);
   padding-left: 10px;
+  outline: none;
 }
 
 div.dark input {
@@ -113,6 +114,7 @@ div.dark input {
   outline: inherit;
   font-size: 1.7em;
   margin-top: 1em;
+  user-select: none;
 }
 
 .button:hover {
