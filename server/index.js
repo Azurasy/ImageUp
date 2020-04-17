@@ -23,8 +23,9 @@ app.use('/img', express.static(process.env.UPLOAD_DIR));
 
 // routes
 app.use('/api/upload', require('./routes/upload.js'));
-app.use('/api/imgdata', require('./routes/imgdata.js'))
-app.use('/api/recent', require('./routes/recent.js'))
+app.use('/api/imgdata', require('./routes/imgdata.js'));
+app.use('/api/recent', require('./routes/recent.js'));
+app.use('/api/users', require('./routes/users.js'));
 
 // serve SPA from public directory
 if (isEnvProduction) {
