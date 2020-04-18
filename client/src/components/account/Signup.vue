@@ -26,27 +26,27 @@
 //import axios from "axios";
 
 export default {
-  name: "Signup",
+  name: 'Signup',
   data: function() {
     return {
-      error: ""
+      error: '',
     };
   },
   methods: {
     submit() {
       if (!this.inputValid()) return;
-      this.error = "";
+      this.error = '';
       //this.$refs.submit.disabled = true;
 
       let body = {
         name: this.$refs.form_name.value,
         username: this.$refs.form_user.value,
         email: this.$refs.form_email.value,
-        password: this.$refs.form_pass.value
+        password: this.$refs.form_pass.value,
       };
 
       this.$store
-        .dispatch("signup", body)
+        .dispatch('signup', body)
         .then(() => {
           this.$router.push(`/u/${body.username}`);
         })
@@ -85,7 +85,7 @@ export default {
         Username,
         Email,
         Password,
-        "Confirm password": Confirm
+        'Confirm password': Confirm,
       };
       for (let key in fields) {
         let val = fields[key];
@@ -98,13 +98,13 @@ export default {
 
       // username length
       if (Username.length < 4 || Password.length > 32) {
-        this.error = "Username must be between 4 and 32 characters!";
+        this.error = 'Username must be between 4 and 32 characters!';
         return false;
       }
 
       // password length
       if (Password.length < 8 || Password.length > 16) {
-        this.error = "Password must be between 8 and 16 characters!";
+        this.error = 'Password must be between 8 and 16 characters!';
         return false;
       }
 
@@ -121,20 +121,20 @@ export default {
 
       // check email
       if (!Email.match(emailRE)) {
-        this.error = `Invalid email!`;
+        this.error = 'Invalid email!';
         return false;
       }
 
       // confirm password
       if (Password != Confirm) {
-        this.error = "Password does not match!";
-        this.$refs.form_confirm.value = "";
+        this.error = 'Password does not match!';
+        this.$refs.form_confirm.value = '';
         return false;
       }
 
       return true;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -157,7 +157,7 @@ input {
   border-radius: 10px;
   font-weight: bold;
   font-size: 1.2em;
-  font-family: "Comfortaa";
+  font-family: 'Comfortaa';
   width: 300px;
   margin-top: 1em;
   box-shadow: 0 4px 102px 0 rgba(0, 0, 0, 0.01), 0 1px 2px 0 rgba(0, 0, 0, 0.1);

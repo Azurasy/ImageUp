@@ -7,28 +7,28 @@
 </template>
 
 <script>
-import Header from "../components/Header";
-import Signup from "../components/account/Signup";
-import Login from "../components/account/Login";
+import Header from '../components/Header';
+import Signup from '../components/account/Signup';
+import Login from '../components/account/Login';
 
 export default {
   components: {
     Header,
     Signup,
-    Login
+    Login,
   },
   data: function() {
     return {
-      tab: "login"
+      tab: 'login',
     };
   },
   methods: {
     showLogin() {
-      this.tab = "login";
+      this.tab = 'login';
     },
     showSignup() {
-      this.tab = "signup";
-    }
+      this.tab = 'signup';
+    },
   },
   created() {
     if (this.$store.getters.isLoggedIn) {
@@ -36,13 +36,13 @@ export default {
     }
   },
   watch: {
-    "$store.getters.reload": function(val) {
+    '$store.getters.reload': function(val) {
       if (val) {
-        this.$store.dispatch("setReload", false);
-        this.tab = "login";
+        this.$store.dispatch('setReload', false);
+        this.tab = 'login';
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

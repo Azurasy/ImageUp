@@ -20,23 +20,23 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
-import Header from "../components/Header";
-import ImageTile from "../components/home/ImageTile";
+import Header from '../components/Header';
+import ImageTile from '../components/home/ImageTile';
 
 export default {
-  name: "Home",
+  name: 'Home',
   components: {
     Header,
-    ImageTile
+    ImageTile,
   },
   data: function() {
     return {
       index: -1,
       data: [],
       images: [],
-      gallery: null
+      gallery: null,
     };
   },
   methods: {
@@ -67,15 +67,15 @@ export default {
       return parseInt(window.getComputedStyle(elem).getPropertyValue(style));
     },
     getHeight(item) {
-      return item.querySelector(".content").getBoundingClientRect().height;
+      return item.querySelector('.content').getBoundingClientRect().height;
     },
     resizeAll() {
-      var altura = this.getVal(this.gallery, "grid-auto-rows");
-      var gap = this.getVal(this.gallery, "grid-row-gap");
-      this.gallery.querySelectorAll(".gallery-item").forEach(item => {
+      var altura = this.getVal(this.gallery, 'grid-auto-rows');
+      var gap = this.getVal(this.gallery, 'grid-row-gap');
+      this.gallery.querySelectorAll('.gallery-item').forEach(item => {
         var el = item;
         el.style.gridRowEnd =
-          "span " + Math.ceil((this.getHeight(item) + gap) / (altura + gap));
+          'span ' + Math.ceil((this.getHeight(item) + gap) / (altura + gap));
       });
     },
     updateLoaded() {
@@ -90,26 +90,26 @@ export default {
       }
       this.resizeAll();
       setTimeout(() => this.resizeAll(), 500);
-    }
+    },
   },
   mounted() {
     this.gallery = this.$refs.gallery;
     this.resizeAll();
-    window.addEventListener("resize", this.resizeAll);
+    window.addEventListener('resize', this.resizeAll);
 
     // temporary hacky workaround
     this.btnClicked();
   },
   watch: {
-    "$store.getters.reload": function(val) {
+    '$store.getters.reload': function(val) {
       if (val) {
-        this.$store.dispatch("setReload", false);
+        this.$store.dispatch('setReload', false);
       }
     },
-    "$route.fullPath": function(val) {
-      if (val === "/") this.resizeAll();
-    }
-  }
+    '$route.fullPath': function(val) {
+      if (val === '/') this.resizeAll();
+    },
+  },
 };
 </script>
 

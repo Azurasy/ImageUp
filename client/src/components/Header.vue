@@ -7,14 +7,14 @@
 
 <script>
 export default {
-  name: "Header",
-  props: ["title"]
+  name: 'Header',
+  props: ['title'],
 };
 </script>
 
 <style scoped>
 .header {
-  font-family: "Comfortaa";
+  font-family: 'Comfortaa';
   max-width: 100%;
   height: 125px;
   font-size: 4em;

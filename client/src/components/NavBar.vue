@@ -5,7 +5,7 @@
         :class="[
           'navbtn',
           { active: this.$route.path === '/' },
-          { 'no-touch': !touchscreen }
+          { 'no-touch': !touchscreen },
         ]"
         @click="navHome"
       >
@@ -26,7 +26,7 @@
         :class="[
           'navbtn',
           { active: this.$route.path === '/upload' },
-          { 'no-touch': !touchscreen }
+          { 'no-touch': !touchscreen },
         ]"
         @click="navUpload"
       >
@@ -55,7 +55,7 @@
         :class="[
           'navbtn',
           { active: onAccountPage },
-          { 'no-touch': !touchscreen }
+          { 'no-touch': !touchscreen },
         ]"
         @click="navAccount"
       >
@@ -125,47 +125,47 @@
 
 <script>
 export default {
-  name: "NavBar",
+  name: 'NavBar',
   data: function() {
     return {
-      touchscreen: false
+      touchscreen: false,
     };
   },
   computed: {
     onAccountPage: function() {
-      if (this.$route.path === "/login" || this.$route.path.startsWith("/u/"))
+      if (this.$route.path === '/login' || this.$route.path.startsWith('/u/'))
         return true;
       return false;
-    }
+    },
   },
   methods: {
     themeLight() {
-      this.$store.dispatch("setTheme", "light");
+      this.$store.dispatch('setTheme', 'light');
     },
     themeDark() {
-      this.$store.dispatch("setTheme", "dark");
+      this.$store.dispatch('setTheme', 'dark');
     },
     navHome() {
-      if (this.$route.path === "/") this.$store.dispatch("setReload", true);
-      else this.$router.push("/");
+      if (this.$route.path === '/') this.$store.dispatch('setReload', true);
+      else this.$router.push('/');
     },
     navUpload() {
-      if (this.$route.path === "/upload")
-        this.$store.dispatch("setReload", true);
-      else this.$router.push("/upload");
+      if (this.$route.path === '/upload')
+        this.$store.dispatch('setReload', true);
+      else this.$router.push('/upload');
     },
     navAccount() {
-      if (this.$route.path === "/login")
-        this.$store.dispatch("setReload", true);
-      else this.$router.push("/login");
-    }
+      if (this.$route.path === '/login')
+        this.$store.dispatch('setReload', true);
+      else this.$router.push('/login');
+    },
   },
   mounted() {
-    if ("ontouchstart" in document.documentElement) {
+    if ('ontouchstart' in document.documentElement) {
       this.touchscreen = true;
-      console.log("touchscreen");
+      console.log('touchscreen');
     }
-  }
+  },
 };
 </script>
 

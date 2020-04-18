@@ -19,25 +19,25 @@
 //import axios from "axios";
 
 export default {
-  name: "Login",
+  name: 'Login',
   data: function() {
     return {
-      error: ""
+      error: '',
     };
   },
   methods: {
     submit() {
       if (!this.inputValid()) return;
-      this.error = "";
+      this.error = '';
       //this.$refs.submit.disabled = true;
 
       let body = {
         username: this.$refs.form_user.value,
-        password: this.$refs.form_pass.value
+        password: this.$refs.form_pass.value,
       };
 
       this.$store
-        .dispatch("login", body)
+        .dispatch('login', body)
         .then(() => {
           this.$router.push(`/u/${body.username}`);
         })
@@ -80,8 +80,8 @@ export default {
       }
 
       return true;
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -104,7 +104,7 @@ input {
   border-radius: 10px;
   font-weight: bold;
   font-size: 1.2em;
-  font-family: "Comfortaa";
+  font-family: 'Comfortaa';
   width: 300px;
   margin-top: 1em;
   box-shadow: 0 4px 102px 0 rgba(0, 0, 0, 0.01), 0 1px 2px 0 rgba(0, 0, 0, 0.1);

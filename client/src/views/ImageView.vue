@@ -7,19 +7,19 @@
 </template>
 
 <script>
-import axios from "axios";
+import axios from 'axios';
 
-import Header from "../components/Header";
+import Header from '../components/Header';
 
 export default {
-  name: "ImageView",
+  name: 'ImageView',
   components: {
-    Header
+    Header,
   },
   data: function() {
     return {
       data: null,
-      loaded: false
+      loaded: false,
     };
   },
   methods: {},
@@ -31,21 +31,21 @@ export default {
         if (this.data) {
           let downloadingImage = new Image();
           downloadingImage.onload = () => {
-            document.getElementById("vimage").src = downloadingImage.src;
+            document.getElementById('vimage').src = downloadingImage.src;
             this.loaded = true;
           };
           downloadingImage.src = `/img/${this.data.uuid}${this.data.file_ext}`;
-        } else this.data = { title: "Image not found" };
+        } else this.data = { title: 'Image not found' };
       })
       .catch(err => console.log(err));
   },
   watch: {
-    "$store.getters.reload": function(val) {
+    '$store.getters.reload': function(val) {
       if (val) {
-        this.$store.dispatch("setReload", false);
+        this.$store.dispatch('setReload', false);
       }
-    }
-  }
+    },
+  },
 };
 </script>
 

@@ -11,52 +11,52 @@
 </template>
 
 <script>
-import NavBar from "./components/NavBar";
+import NavBar from './components/NavBar';
 
 export default {
-  name: "App",
+  name: 'App',
   components: {
-    NavBar
+    NavBar,
   },
   created() {
-    if (this.$cookies.isKey("theme")) {
-      this.$store.dispatch("setTheme", this.$cookies.get("theme"));
+    if (this.$cookies.isKey('theme')) {
+      this.$store.dispatch('setTheme', this.$cookies.get('theme'));
     }
 
     this.$http.interceptors.response.use(undefined, function(err) {
       return new Promise(function() {
         if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
-          this.$store.dispatch("logout");
+          this.$store.dispatch('logout');
         }
       });
     });
 
-    this.$store.dispatch("fetchUserData").catch(err => {
+    this.$store.dispatch('fetchUserData').catch(err => {
       console.log(err);
     });
-  }
+  },
 };
 </script>
 
 <style>
 @font-face {
-  font-family: "Itim";
+  font-family: 'Itim';
   font-style: normal;
   font-weight: 400;
   font-display: swap;
-  src: local("Itim"), local("Itim-Regular"),
-    url("./assets/fonts/item.woff2") format("woff2");
+  src: local('Itim'), local('Itim-Regular'),
+    url('./assets/fonts/item.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
     U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
     U+FEFF, U+FFFD;
 }
 
 @font-face {
-  font-family: "Comfortaa";
+  font-family: 'Comfortaa';
   font-style: normal;
   font-weight: 700;
   font-display: swap;
-  src: url("./assets/fonts/comfortaa.woff2") format("woff2");
+  src: url('./assets/fonts/comfortaa.woff2') format('woff2');
   unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
     U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
     U+FEFF, U+FFFD;
@@ -72,7 +72,7 @@ body,
 
 #app {
   font-weight: bold;
-  font-family: "Itim";
+  font-family: 'Itim';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

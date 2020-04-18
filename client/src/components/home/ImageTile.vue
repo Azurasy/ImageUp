@@ -10,25 +10,25 @@
 
 <script>
 export default {
-  name: "ImageTile",
-  props: ["data"],
+  name: 'ImageTile',
+  props: ['data'],
   data: function() {
     return {
       img_url: `${this.data.base_url}${this.data.uuid}${this.data.file_ext}`,
-      page_url: `/i/${this.data.uuid}`
+      page_url: `/i/${this.data.uuid}`,
     };
   },
   methods: {
     clicked() {
       this.$router.push(this.page_url);
-    }
+    },
   },
   mounted() {
     let img = document.getElementById(`img-${this.data.uuid}`);
     img.src = this.data.downloadingImage.src;
-    setTimeout(() => (img.style.visibility = "visible"), 500);
-    this.$emit("image_loaded");
-  }
+    setTimeout(() => (img.style.visibility = 'visible'), 500);
+    this.$emit('image_loaded');
+  },
 };
 </script>
 

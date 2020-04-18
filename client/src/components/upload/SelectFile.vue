@@ -34,12 +34,12 @@
 
 <script>
 export default {
-  name: "SelectFile",
+  name: 'SelectFile',
   data: function() {
     return {
       hovering: false,
       invalid: false,
-      droptext: "Drop image here"
+      droptext: 'Drop image here',
     };
   },
   methods: {
@@ -47,40 +47,40 @@ export default {
       this.leave();
       let files = e.dataTransfer.files;
       if (!files) return;
-      if (this.isImage(files[0])) this.$emit("selected", files[0]);
+      if (this.isImage(files[0])) this.$emit('selected', files[0]);
       else this.invalidWarn();
     },
     enter() {
-      this.droptext = "Release file";
+      this.droptext = 'Release file';
       this.hovering = true;
     },
     leave() {
-      this.droptext = "Drop image here";
+      this.droptext = 'Drop image here';
       this.hovering = false;
     },
     isImage(file) {
-      return file && file["type"].split("/")[0] === "image";
+      return file && file['type'].split('/')[0] === 'image';
     },
     invalidWarn() {
       this.invalid = true;
-      this.droptext = "Not an image!";
+      this.droptext = 'Not an image!';
       setTimeout(() => {
         this.invalid = false;
-        this.droptext = "Drop image here";
+        this.droptext = 'Drop image here';
       }, 2000);
     },
     manual() {
-      let input = document.createElement("input");
-      input.setAttribute("type", "file");
+      let input = document.createElement('input');
+      input.setAttribute('type', 'file');
       input.click();
       input.onchange = () => {
         let files = input.files;
         if (!files) return;
-        if (this.isImage(files[0])) this.$emit("selected", files[0]);
+        if (this.isImage(files[0])) this.$emit('selected', files[0]);
         else this.invalidWarn();
       };
-    }
-  }
+    },
+  },
 };
 </script>
 

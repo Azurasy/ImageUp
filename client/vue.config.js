@@ -1,16 +1,16 @@
-const path = require("path");
-require("dotenv").config({ path: "../.env" });
+const path = require('path');
+require('dotenv').config({ path: '../.env' });
 
 module.exports = {
-  outputDir: path.resolve(__dirname, "../server/public"),
+  outputDir: path.resolve(__dirname, '../server/public'),
   devServer: {
     proxy: {
-      "/api/*": {
-        target: `http://localhost:${process.env.DEV_PORT}`
+      '/api/*': {
+        target: `http://localhost:${process.env.DEV_PORT}`,
       },
-      "/img/*": {
-        target: `http://localhost:${process.env.DEV_PORT}`
-      }
-    }
-  }
+      '/img/*': {
+        target: `http://localhost:${process.env.DEV_PORT}`,
+      },
+    },
+  },
 };

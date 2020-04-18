@@ -1,59 +1,59 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import Vue from 'vue';
+import VueRouter from 'vue-router';
 
-import Home from "../views/Home";
-import Upload from "../views/Upload";
-import ImageView from "../views/ImageView";
-import PageNotFound from "../views/PageNotFound";
-import Account from "../views/Account";
-import UserProfile from "../views/UserProfile";
+import Home from '../views/Home';
+import Upload from '../views/Upload';
+import ImageView from '../views/ImageView';
+import PageNotFound from '../views/PageNotFound';
+import Account from '../views/Account';
+import UserProfile from '../views/UserProfile';
 
 Vue.use(VueRouter);
 
 const routes = [
   {
-    path: "/",
-    name: "home",
-    component: Home
+    path: '/',
+    name: 'home',
+    component: Home,
   },
   {
-    path: "/upload",
-    name: "upload",
-    component: Upload
+    path: '/upload',
+    name: 'upload',
+    component: Upload,
   },
   {
-    path: "/i/:id",
-    name: "image",
-    component: ImageView
+    path: '/i/:id',
+    name: 'image',
+    component: ImageView,
   },
   {
-    path: "/login",
-    name: "account",
+    path: '/login',
+    name: 'account',
     component: Account,
     meta: {
-      requiresLogout: true
-    }
+      requiresLogout: true,
+    },
   },
   {
-    path: "/u/:username",
-    name: "profile",
-    component: UserProfile
+    path: '/u/:username',
+    name: 'profile',
+    component: UserProfile,
   },
   {
-    path: "/404",
-    nmae: "404",
-    component: PageNotFound
+    path: '/404',
+    nmae: '404',
+    component: PageNotFound,
   },
   {
-    path: "*",
-    redirect: "/404"
-  }
+    path: '*',
+    redirect: '/404',
+  },
 ];
 
 const router = new VueRouter({
-  mode: "history",
+  mode: 'history',
   base: process.env.BASE_URL,
-  routes
+  routes,
 });
 
 /*import store from "../store";

@@ -15,23 +15,23 @@
 </template>
 
 <script>
-import Header from "../components/Header";
-import axios from "axios";
+import Header from '../components/Header';
+import axios from 'axios';
 
 export default {
-  name: "UserProfile",
+  name: 'UserProfile',
   components: {
-    Header
+    Header,
   },
   data: function() {
     return {
-      data: null
+      data: null,
     };
   },
   computed: {
     email: function() {
       if (this.data.email) return this.data.email;
-      return "*requires login*";
+      return '*requires login*';
     },
     userLoggedIn: function() {
       if (
@@ -40,18 +40,18 @@ export default {
       )
         return true;
       return false;
-    }
+    },
   },
   methods: {
     logout() {
-      console.log("logout");
+      console.log('logout');
       this.$store
-        .dispatch("logout")
+        .dispatch('logout')
         .then(() => {
-          this.$router.push("/login");
+          this.$router.push('/login');
         })
         .catch(err => console.log(err));
-    }
+    },
   },
   created() {
     axios
@@ -60,7 +60,7 @@ export default {
         this.data = res.data;
       })
       .catch(err => console.log(err));
-  }
+  },
 };
 </script>
 

@@ -39,33 +39,33 @@
 
 <script>
 export default {
-  name: "SelectOptions",
+  name: 'SelectOptions',
   data: function() {
     return {
-      uploading: false
+      uploading: false,
     };
   },
   methods: {
     upload() {
       if (!this.uploading) {
         this.uploading = true;
-        document.getElementById("file_name").disabled = true;
-        document.getElementById("file_exposure").disabled = true;
-        document.getElementById("file_expiration").disabled = true;
+        document.getElementById('file_name').disabled = true;
+        document.getElementById('file_exposure').disabled = true;
+        document.getElementById('file_expiration').disabled = true;
 
-        let name = document.getElementById("file_name").value;
-        if (!name) name = "Untitled";
+        let name = document.getElementById('file_name').value;
+        if (!name) name = 'Untitled';
 
-        let exposure = document.getElementById("file_exposure").value;
+        let exposure = document.getElementById('file_exposure').value;
 
         let expiration = parseInt(
-          document.getElementById("file_expiration").value
+          document.getElementById('file_expiration').value,
         );
 
-        this.$emit("selected", { name, exposure, expiration });
+        this.$emit('selected', { name, exposure, expiration });
       }
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -124,14 +124,14 @@ input {
   border: 3px solid white;
   border-radius: 2px;
   font-weight: bold;
-  font-family: "Comfortaa";
+  font-family: 'Comfortaa';
   width: 150px;
   user-select: none;
 }
 
 select {
   width: 150px;
-  font-family: "Comfortaa";
+  font-family: 'Comfortaa';
   height: 2em;
   background-color: white;
   border: 3px solid white;
