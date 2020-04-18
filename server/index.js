@@ -3,13 +3,16 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
-const db = require('./db.js');
+const db = require('./database.js');
 
+// init env vars
 require('dotenv').config();
 const isEnvProduction = ['production', 'prod', 'p'].includes(process.env.NODE_ENV);
 
-db.init();
+// init db
+require('./db_init');
 
+// init express 
 const app = express();
 
 // middleware
@@ -22,10 +25,8 @@ if (!fs.existsSync(process.env.UPLOAD_DIR)) fs.mkdirSync(process.env.UPLOAD_DIR)
 app.use('/img', express.static(process.env.UPLOAD_DIR));
 
 // routes
-app.use('/api/upload', require('./routes/upload.js'));
-app.use('/api/imgdata', require('./routes/imgdata.js'));
-app.use('/api/recent', require('./routes/recent.js'));
-app.use('/api/users', require('./routes/users.js'));
+app.use('/api/img', require('./routes/img/router.js'))
+app.use('/api/user', require('./routes/user.js'));
 
 // serve SPA from public directory
 if (isEnvProduction) {

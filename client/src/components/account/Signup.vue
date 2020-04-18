@@ -3,6 +3,7 @@
     <p class="heading">Create Account</p>
     <div class="container">
       <div :class="['content', $store.getters.theme]" @keyup.enter="submit">
+        <input ref="form_name" type="text" placeholder="name" />
         <input ref="form_user" type="text" placeholder="username" />
         <input ref="form_email" type="text" placeholder="email" />
         <input ref="form_pass" type="password" placeholder="password" />
@@ -22,7 +23,7 @@
 </template>
 
 <script>
-import axios from "axios";
+//import axios from "axios";
 
 export default {
   name: "Signup",
@@ -37,38 +38,55 @@ export default {
       this.error = "";
       //this.$refs.submit.disabled = true;
 
-      let data = {
+      let body = {
+        name: this.$refs.form_name.value,
         username: this.$refs.form_user.value,
         email: this.$refs.form_email.value,
         password: this.$refs.form_pass.value
       };
 
+      this.$store
+        .dispatch("signup", body)
+        .then(() => {
+          this.$router.push(`/u/${body.username}`);
+        })
+        .catch(err => console.log(err));
+      /*
       axios
-        .post(`/api/signup`, data, {
+        .post(`/api/user/auth/signup`, body, {
           headers: {
             "Content-Type": "application/json"
           }
         })
-        .then(() => {
-          this.error = "Placerholder: Sucessess!";
+        .then(res => {
+          if (res.data.error) {
+            this.error = res.data.error;
+            return;
+          }
         })
         .catch(() => {
-          this.error = "Failed: Server error!";
+          this.error = "Failed to create account: server error";
         });
+        */
     },
     inputValid() {
-      let username = this.$refs.form_user.value;
-      let email = this.$refs.form_email.value;
-      let password = this.$refs.form_pass.value;
-      let confirm = this.$refs.form_confirm.value;
+      let Name = this.$refs.form_name.value;
+      let Username = this.$refs.form_user.value;
+      let Email = this.$refs.form_email.value;
+      let Password = this.$refs.form_pass.value;
+      let Confirm = this.$refs.form_confirm.value;
 
       const userRE = /^[a-zA-Z0-9_-]+$/;
       const emailRE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      // do get request to see if username is taken
-      // /api/checkusername/:username
 
       // check field length
-      let fields = { username, email, password, "confirm password": confirm };
+      let fields = {
+        Name,
+        Username,
+        Email,
+        Password,
+        "Confirm password": Confirm
+      };
       for (let key in fields) {
         let val = fields[key];
 
@@ -79,19 +97,19 @@ export default {
       }
 
       // username length
-      if (username.length < 4 || password.length > 32) {
+      if (Username.length < 4 || Password.length > 32) {
         this.error = "Username must be between 4 and 32 characters!";
         return false;
       }
 
       // password length
-      if (password.length < 8 || password.length > 16) {
+      if (Password.length < 8 || Password.length > 16) {
         this.error = "Password must be between 8 and 16 characters!";
         return false;
       }
 
       // check username password characters
-      fields = { username, password };
+      fields = { Username, Password };
       for (let key in fields) {
         let val = fields[key];
 
@@ -102,13 +120,13 @@ export default {
       }
 
       // check email
-      if (!email.match(emailRE)) {
+      if (!Email.match(emailRE)) {
         this.error = `Invalid email!`;
         return false;
       }
 
       // confirm password
-      if (password != confirm) {
+      if (Password != Confirm) {
         this.error = "Password does not match!";
         this.$refs.form_confirm.value = "";
         return false;

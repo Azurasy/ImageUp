@@ -25,7 +25,7 @@ export default {
   methods: {},
   created() {
     axios
-      .get(`/api/imgdata/${this.$route.params.id}`)
+      .get(`/api/img/data/${this.$route.params.id}`)
       .then(res => {
         this.data = res.data.data;
         if (this.data) {

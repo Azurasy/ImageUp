@@ -42,7 +42,7 @@ export default {
   methods: {
     btnClicked() {
       axios
-        .get(`/api/recent/${this.index}`)
+        .get(`/api/img/recent/${this.index}`)
         .then(res => {
           let data = res.data.data;
           if (data) {

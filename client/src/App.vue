@@ -22,6 +22,18 @@ export default {
     if (this.$cookies.isKey("theme")) {
       this.$store.dispatch("setTheme", this.$cookies.get("theme"));
     }
+
+    this.$http.interceptors.response.use(undefined, function(err) {
+      return new Promise(function() {
+        if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+          this.$store.dispatch("logout");
+        }
+      });
+    });
+
+    this.$store.dispatch("fetchUserData").catch(err => {
+      console.log(err);
+    });
   }
 };
 </script>

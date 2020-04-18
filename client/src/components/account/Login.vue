@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import axios from "axios";
+//import axios from "axios";
 
 export default {
   name: "Login",
@@ -31,23 +31,38 @@ export default {
       this.error = "";
       //this.$refs.submit.disabled = true;
 
-      let data = {
+      let body = {
         username: this.$refs.form_user.value,
         password: this.$refs.form_pass.value
       };
 
+      this.$store
+        .dispatch("login", body)
+        .then(() => {
+          this.$router.push(`/u/${body.username}`);
+        })
+        .catch(err => console.log(err));
+
+      /*
       axios
-        .post(`/api/login`, data, {
+        .post(`/api/user/auth/login`, body, {
           headers: {
             "Content-Type": "application/json"
           }
         })
-        .then(() => {
-          this.error = "Placerholder: Sucessess!";
+        .then(res => {
+          if (res.data.error) {
+            this.error = res.data.error;
+            return;
+          }
+          console.log(res.data.token);
+          // res.data.token;
+          // res.data.expires
         })
         .catch(() => {
           this.error = "Failed: Server error!";
         });
+        */
     },
     inputValid() {
       let username = this.$refs.form_user.value;

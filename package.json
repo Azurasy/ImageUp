@@ -27,6 +27,7 @@
     "passport-local": "^1.0.0",
     "passport-local-token": "^1.0.1",
     "sequelize": "^5.21.6",
-    "shortid": "^2.2.15"
+    "shortid": "^2.2.15",
+    "sqlite3": "^4.1.1"
   }
 }

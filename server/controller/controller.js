@@ -1,89 +1,83 @@
-const db = require('../db.js');
-const secret = db.secret;
-const User = db.auth.user;
-const Role = db.auth.role;
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcryptjs');
+const User = require('../model/User')
+const { SECRET } = require('../consts');
 
-const Op = db.auth.Sequelize.Op;
+signup = (name, username, email, password, cb) => {
+	// cb(err, user)
 
-var jwt = require('jsonwebtoken');
-var bcrypt = require('bcryptjs');
-
-exports.signup = (req, res) => {
-	// Save User to Database
-	console.log("Processing function -> SignUp");
-	
 	User.create({
-		name: req.body.name,
-		username: req.body.username,
-		email: req.body.email,
-		password: bcrypt.hashSync(req.body.password, 8)
-	}).then(user => {
-		Role.findAll({
-		  where: {
-			name: {
-			  [Op.or]: req.body.roles
-			}
-		  }
-		}).then(roles => {
-			user.setRoles(roles).then(() => {
-				res.send("User registered successfully!");
-            });
-		}).catch(err => {
-			res.status(500).send("Error -> " + err);
-		});
-	}).catch(err => {
-		res.status(500).send("Fail! Error -> " + err);
+		name,
+		username,
+		email,
+		password: bcrypt.hashSync(password, 8)
 	})
-}
-
-exports.signin = (req, res) => {
-	console.log("Sign-In");
-	
-	User.findOne({
-		where: {
-			username: req.body.username
-		}
-	}).then(user => {
-		if (!user) {
-			return res.status(404).send('User Not Found.');
-		}
-
-		var passwordIsValid = bcrypt.compareSync(req.body.password, user.password);
-		if (!passwordIsValid) {
-			return res.status(401).send({ auth: false, accessToken: null, reason: "Invalid Password!" });
-		}
-		
-		var token = jwt.sign({ id: user.id }, secret, {
-		  expiresIn: 86400 // expires in 24 hours
-		});
-		
-		res.status(200).send({ auth: true, accessToken: token });
-		
-	}).catch(err => {
-		res.status(500).send('Error -> ' + err);
+	.then(user => {
+		cb(null, user.dataValues.id);
+	})
+	.catch(err => {
+		console.warn(err);
+		cb("failed: server error", null)
 	});
 }
 
-exports.userContent = (req, res) => {
+login = (username, password, cb) => {
+	// cb(err, token)
+
+	const expiresIn = 86400; // expires in 24 hours
+
 	User.findOne({
-		where: {id: req.userId},
-		attributes: ['name', 'username', 'email'],
-		include: [{
-			model: Role,
-			attributes: ['id', 'name'],
-			through: {
-				attributes: ['userId', 'roleId'],
-			}
-		}]
-	}).then(user => {
-		res.status(200).json({
-			"description": "User Content Page",
-			"user": user
-		});
-	}).catch(err => {
-		res.status(500).json({
-			"description": "Can not access User Page",
-			"error": err
-		});
+		where: { username }
 	})
+	.then(user => {
+		if (!user) return cb("User not found");
+
+		const passwordValid = bcrypt.compareSync(password, user.password);
+		if (!passwordValid) return cb("Incorrect password");
+		
+		let token = jwt.sign({ id: user.id }, SECRET, { expiresIn });
+		
+		cb(false, token, expiresIn);
+	})
+	.catch(err => {
+		console.warn(err);
+		cb("failed: server error")
+	});
+}
+
+userDataByUsername = (username, cb) => {
+	User.findOne({
+		where: { username },
+		attributes: ['id', 'name', 'username', 'email']
+	})
+	.then(user => {
+		if (user) return cb(false, user.dataValues);
+		return cb("User not found");
+	})
+	.catch(err => { 
+		console.warn(err)
+		cb("Server error");
+	});
+}
+
+userDataById = (id, cb) => {
+	User.findOne({
+		where: { id },
+		attributes: ['id', 'name', 'username', 'email']
+	})
+	.then(user => {
+		if (user) return cb(false, user.dataValues);
+		return cb("User not found");
+	})
+	.catch(err => { 
+		console.warn(err)
+		cb("Server error");
+	});
+}
+
+module.exports = {
+	signup,
+	login,
+	userDataByUsername,
+	userDataById
 }

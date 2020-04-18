@@ -6,6 +6,7 @@ import Upload from "../views/Upload";
 import ImageView from "../views/ImageView";
 import PageNotFound from "../views/PageNotFound";
 import Account from "../views/Account";
+import UserProfile from "../views/UserProfile";
 
 Vue.use(VueRouter);
 
@@ -26,9 +27,17 @@ const routes = [
     component: ImageView
   },
   {
-    path: "/account",
+    path: "/login",
     name: "account",
-    component: Account
+    component: Account,
+    meta: {
+      requiresLogout: true
+    }
+  },
+  {
+    path: "/u/:username",
+    name: "profile",
+    component: UserProfile
   },
   {
     path: "/404",
@@ -46,5 +55,19 @@ const router = new VueRouter({
   base: process.env.BASE_URL,
   routes
 });
+
+/*import store from "../store";
+router.beforeEach((to, from, next) => {
+  if (to.matched.some(record => record.meta.requiresLogout)) {
+    if (!store.getters.isLoggedIn) {
+      next();
+      return;
+    }
+    next(`/u/${store.getters.user.username}`);
+  } else {
+    next();
+  }
+});
+*/
 
 export default router;

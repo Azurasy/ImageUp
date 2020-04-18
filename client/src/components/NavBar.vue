@@ -54,7 +54,7 @@
       <div
         :class="[
           'navbtn',
-          { active: this.$route.path === '/account' },
+          { active: onAccountPage },
           { 'no-touch': !touchscreen }
         ]"
         @click="navAccount"
@@ -131,6 +131,13 @@ export default {
       touchscreen: false
     };
   },
+  computed: {
+    onAccountPage: function() {
+      if (this.$route.path === "/login" || this.$route.path.startsWith("/u/"))
+        return true;
+      return false;
+    }
+  },
   methods: {
     themeLight() {
       this.$store.dispatch("setTheme", "light");
@@ -148,9 +155,9 @@ export default {
       else this.$router.push("/upload");
     },
     navAccount() {
-      if (this.$route.path === "/account")
+      if (this.$route.path === "/login")
         this.$store.dispatch("setReload", true);
-      else this.$router.push("/account");
+      else this.$router.push("/login");
     }
   },
   mounted() {

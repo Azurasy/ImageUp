@@ -30,6 +30,11 @@ export default {
       this.tab = "signup";
     }
   },
+  created() {
+    if (this.$store.getters.isLoggedIn) {
+      this.$router.push(`/u/${this.$store.getters.user.username}`);
+    }
+  },
   watch: {
     "$store.getters.reload": function(val) {
       if (val) {

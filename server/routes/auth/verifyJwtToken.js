@@ -1,70 +1,21 @@
 const jwt = require('jsonwebtoken');
 const db = require('../../db.js');
-const Role = db.auth.role;
-const User = db.auth.user;
+const User = require('../../model/User');
+const { SECRET } = require('../../consts');
 
-verifyToken = (req, res) => {
+verifyToken = (req, cb) => {
+    // cb(err)
+
     let token = req.headers['x-access-token'];
+    if (!token) return cb("missing token");
 
-    if(!token) {
-        return res.status(403).send({
-            auth: false, message: 'No token provided'
-        });
-    }
-
-    jwt.verify(token, secret, (err, decoded) => {
-        if (err) {
-            return res.status(500).send({
-                auth: false,
-                message: 'Failure to Authenticate. Error --> ' + err
-            });
-        }
+    jwt.verify(token, SECRET, (err, decoded) => {
+        if (err) return cb("failed decoding token");
         req.userId = decoded.id;
+        return cb(false);
     });
 }
 
-isAdmin = (req, res) => {
-    let token = req.headers['x-access-token'];
-
-    User.findById(req.userId)
-        .then(user => {
-            user.getRoles().then(roles => {
-                for(i = 0; i < roles.length; i++){
-                    console.log(roles[i].name);
-                    if (roles[i].name.toUpperCase() === "ADMIN"){
-                        return;
-                    }
-                }
-                res.status(403).send('Requires Admin Role.');
-                return;
-            })
-        })
-}
-
-isModOrAdmin = (req, res) => {
-    let token = req.headers['x-access-token'];
-
-    User.findById(req.userId)
-        .then(user => {
-            user.getRoles().then(roles => {
-                for (i = 0; i < roles.length; i++){
-                    if (roles[i].name.toUpperCase() === "MOD"){
-                        return;
-                    }
-
-                    if (roles[i].name.toUpperCase() === "ADMIN"){
-                        next();
-                        return;
-                    }
-                }
-                res.status(403).send('Requires MOD or ADMIN.');
-            })
-        })
-}
-
-const authJwt = {};
-authJwt.verifyToken = verifyToken;
-authJwt.isAdmin = isAdmin;
-authJwt.isModOrAdmin = isModOrAdmin;
-
-module.exports = authJwt;
+module.exports = {
+    verifyToken
+};
