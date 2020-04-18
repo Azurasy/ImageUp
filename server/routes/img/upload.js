@@ -1,6 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../../db.js');
 const shortid = require('shortid');
 const path = require('path');
 const Image = require('../../model/Image');
@@ -9,7 +8,7 @@ const Image = require('../../model/Image');
 var multer = require('multer');
 var storage = multer.diskStorage({
   destination: function (request, file, callback) {
-    callback(null, process.env.UPLOAD_DIR);
+    callback(null, './local/uploads');
   },
   filename: function (request, file, callback) {
     file.uuid = shortid.generate();

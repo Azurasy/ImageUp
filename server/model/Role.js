@@ -1,5 +1,5 @@
 const Sequelize = require('sequelize');
-const db = require('../database');
+const db = require('../database/db');
 
 const Role = db.define('roles', {
   id: {

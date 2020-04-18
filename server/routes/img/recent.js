@@ -1,9 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const db = require('../../db.js');
-const shortid = require('shortid');
-const path = require('path');
-const cors = require('cors');
 const Image = require('../../model/Image');
 const Op = require('sequelize').Op;
 

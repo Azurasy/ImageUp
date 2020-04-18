@@ -1,6 +1,6 @@
-const { usernameAvailable } = require('./auth/verifySignup');
-const authJwt = require('./auth/verifyJwtToken');
-const controller = require('../controller/controller.js');
+const { usernameAvailable } = require('./verifySignup');
+const authJwt = require('./verifyJwtToken');
+const controller = require('./userActions.js');
 const express = require('express');
 const router = express.Router();
 
@@ -17,7 +17,6 @@ router.post('/auth/signup', (req, res) => {
       data.password,
       (err, id) => {
         if (err) return res.json({ error: err });
-        console.log(`user created: ${data.username}`);
         res.json({ id });
       }
     );
@@ -53,6 +52,7 @@ router.get('/tokendata', (req, res) => {
 
     controller.userDataById(req.userId, (err, data) => {
       if (err) return res.json({ error: err });
+
       res.json(data);
     });
   });

@@ -1,7 +1,7 @@
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcryptjs');
-const User = require('../model/User');
-const { SECRET } = require('../consts');
+const User = require('../../model/User');
+const db = require('../../database/db');
 
 signup = (name, username, email, password, cb) => {
   // cb(err, user)
@@ -35,7 +35,7 @@ login = (username, password, cb) => {
       const passwordValid = bcrypt.compareSync(password, user.password);
       if (!passwordValid) return cb('Incorrect password');
 
-      let token = jwt.sign({ id: user.id }, SECRET, { expiresIn });
+      let token = jwt.sign({ id: user.id }, db.SECRET, { expiresIn });
 
       cb(false, token, expiresIn);
     })

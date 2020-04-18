@@ -31,13 +31,9 @@ export default {
     selectedFile(file) {
       this.file = file;
       this.state = 'options';
-      console.log(`Selected: ${file.name}`);
     },
     selectedOptions(options) {
       this.options = options;
-      console.log(
-        `${options.name} - ${options.exposure} - ${options.expiration}`,
-      );
       this.upload();
     },
     upload() {
@@ -52,8 +48,6 @@ export default {
           },
         })
         .then(res => {
-          console.log('Upload Successful');
-          console.log(res.data.uuid);
           this.$router.push(`/i/${res.data.uuid}`);
         })
         .catch(res => {

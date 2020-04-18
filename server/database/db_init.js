@@ -1,12 +1,26 @@
 const Sequelize = require('sequelize');
+const fs = require('fs');
+const shortid = require('shortid');
 
+// generate / load secret
+let secret;
+if (!fs.existsSync('./local/secret.key')) {
+  secret = shortid.generate() + shortid.generate();
+  fs.writeFileSync('./local/secret.key', secret);
+} else {
+  secret = fs.readFileSync('./local/secret.key').toString();
+}
+
+// create database tables using models
 createTables = (db) => {
+  db.SECRET = secret;
+
   db.authenticate()
     .then(() => console.log('Database connected'))
     .catch((err) => console.warn(err));
 
-  const User = require('./model/User');
-  const Image = require('./model/Image');
+  const User = require('../model/User');
+  const Image = require('../model/Image');
 
   //const Role = require('./model/Role');
   //const UserRole = require('./model/UserRole');
@@ -17,7 +31,7 @@ createTables = (db) => {
 };
 
 if (process.env.DB_DIALECT == 'sqlite') {
-  const db = require('./database');
+  const db = require('./db');
   db.authenticate();
   createTables(db);
 } else {
@@ -36,7 +50,7 @@ if (process.env.DB_DIALECT == 'sqlite') {
   createDb
     .query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME};`)
     .then((res) => {
-      const db = require('./database');
+      const db = require('./db');
       createTables(db);
       createDb.close();
     })
