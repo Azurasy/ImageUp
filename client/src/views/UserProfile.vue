@@ -12,11 +12,13 @@
       username: {{ data.username }}
       email: {{ email }}
         </pre>
-        <pre class="data">    Images:</pre>
+        <pre class="data">  Images:</pre>
         <ul class="imgdata">
-          <li v-for="img in images" :key="img.uuid">
-            {{ img.uuid }} : {{ img.file_name }}{{ img.file_ext }}
-          </li>
+          <li
+            v-for="img in images"
+            :key="img.uuid"
+            @click="imageClicked(img)"
+          >{{ img.file_name }}{{ img.file_ext }}</li>
         </ul>
       </template>
       <pre v-else>{{ data.error }}</pre>
@@ -62,6 +64,9 @@ export default {
         })
         .catch(err => console.log(err));
     },
+    imageClicked(img) {
+      this.$router.push(`/i/${img.uuid}`);
+    },
   },
   created() {
     axios
@@ -72,7 +77,6 @@ export default {
           .get(`/api/img/recent/${this.data.id}/-1`)
           .then(res => {
             this.images = res.data.data;
-            console.log(this.images);
           })
           .catch(err => console.log(err));
       })
@@ -90,5 +94,9 @@ export default {
   text-align: left;
   font-size: 1.2em;
   padding-left: 60px;
+  text-decoration: underline;
+}
+.imgdata:hover {
+  cursor: pointer;
 }
 </style>
