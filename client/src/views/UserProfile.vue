@@ -84,17 +84,24 @@ export default {
 </script>
 
 <style scoped>
+div {
+  font-family: comfortaa;
+}
 .data {
+  font-family: comfortaa;
   text-align: left;
-  font-size: 1.7em;
+  font-size: 1.2em;
 }
 .imgdata {
   text-align: left;
   font-size: 1.2em;
-  padding-left: 60px;
+  padding-left: 40px;
   text-decoration: underline;
 }
 .imgdata:hover {
   cursor: pointer;
+}
+li {
+  line-height: 1.4em;
 }
 </style>
