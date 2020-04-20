@@ -2,13 +2,23 @@
   <div>
     <Header title="Placeholder Profile" />
     <template v-if="data">
-      <pre v-if="!data.error">
-        user id: {{ data.id }}
-        name: {{ data.name }}
-        username: {{ data.username }}
-        email: {{ email }}
-      </pre>
-      <button @click="logout" v-if="userLoggedIn">logout</button>
+      <button class="data" @click="logout" v-if="userLoggedIn">logout</button>
+      <template v-if="!data.error">
+        <pre class="data">
+    User data:
+    
+      id: {{ data.id }}
+      name: {{ data.name }}
+      username: {{ data.username }}
+      email: {{ email }}
+        </pre>
+        <pre class="data">    Images:</pre>
+        <ul class="imgdata">
+          <li v-for="img in images" :key="img.uuid">
+            {{ img.uuid }} : {{ img.file_name }}{{ img.file_ext }}
+          </li>
+        </ul>
+      </template>
       <pre v-else>{{ data.error }}</pre>
     </template>
   </div>
@@ -26,6 +36,7 @@ export default {
   data: function() {
     return {
       data: null,
+      images: [],
     };
   },
   computed: {
@@ -57,6 +68,13 @@ export default {
       .get(`/api/user/data/${this.$route.params.username}`)
       .then(res => {
         this.data = res.data;
+        axios
+          .get(`/api/img/recent/${this.data.id}/-1`)
+          .then(res => {
+            this.images = res.data.data;
+            console.log(this.images);
+          })
+          .catch(err => console.log(err));
       })
       .catch(err => console.log(err));
   },
@@ -64,8 +82,13 @@ export default {
 </script>
 
 <style scoped>
-pre {
+.data {
   text-align: left;
-  font-size: 2em;
+  font-size: 1.7em;
+}
+.imgdata {
+  text-align: left;
+  font-size: 1.2em;
+  padding-left: 60px;
 }
 </style>

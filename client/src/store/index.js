@@ -116,7 +116,7 @@ export default new Vuex.Store({
         delete axios.defaults.headers.common['x-access-token'];
         resolve();
       }).catch(err => {
-        console.log(err);
+        console.warn(err);
       });
     },
   },

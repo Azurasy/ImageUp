@@ -7,7 +7,12 @@
 
     <!-- Credits for image gallary code: https://uicookies.com/css-image-galleries/ and https://codepen.io/vhanla/pen/PxjZvj -->
     <div class="gallery" id="gallery" ref="gallery">
-      <ImageTile v-for="item in images" :key="item.uuid" :data="item" @image_loaded="resizeAll" />
+      <ImageTile
+        v-for="item in images"
+        :key="item.uuid"
+        :data="item"
+        @image_loaded="resizeAll"
+      />
     </div>
   </div>
 </template>
