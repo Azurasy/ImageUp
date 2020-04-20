@@ -1,11 +1,15 @@
 const express = require('express');
 const router = express.Router();
 const Image = require('../../model/Image');
-const Op = require('sequelize').Op;
+const { Op } = require('sequelize');
 
-router.get('/:index', function (req, res) {
+router.get('/:userId/:index', function (req, res) {
+  const op = req.params.userId == 0 ? Op.gte : Op.eq;
   Image.findAll({
     where: {
+      userId: {
+        [op]: req.params.userId,
+      },
       exposure: 'public',
       expiration: {
         [Op.or]: {

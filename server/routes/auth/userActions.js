@@ -24,7 +24,8 @@ signup = (name, username, email, password, cb) => {
 login = (username, password, cb) => {
   // cb(err, token)
 
-  const expiresIn = 86400; // expires in 24 hours
+  //const expiresIn = 86400; // expires in 24 hours
+  const expiresIn = 10;
 
   User.findOne({
     where: { username },

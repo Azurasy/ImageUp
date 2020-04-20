@@ -3,18 +3,11 @@
     <Header title="ImageUp" />
     <!--button @click="btnClicked">Fetch</button-->
 
-    <p class="home_heading">
-      Recently Uploaded
-    </p>
+    <p class="home_heading">Recently Uploaded</p>
 
     <!-- Credits for image gallary code: https://uicookies.com/css-image-galleries/ and https://codepen.io/vhanla/pen/PxjZvj -->
     <div class="gallery" id="gallery" ref="gallery">
-      <ImageTile
-        v-for="item in images"
-        :key="item.uuid"
-        :data="item"
-        @image_loaded="resizeAll"
-      />
+      <ImageTile v-for="item in images" :key="item.uuid" :data="item" @image_loaded="resizeAll" />
     </div>
   </div>
 </template>
@@ -40,9 +33,9 @@ export default {
     };
   },
   methods: {
-    btnClicked() {
+    fetchImages() {
       axios
-        .get(`/api/img/recent/${this.index}`)
+        .get(`/api/img/recent/0/${this.index}`)
         .then(res => {
           let data = res.data.data;
           if (data) {
@@ -96,9 +89,7 @@ export default {
     this.gallery = this.$refs.gallery;
     this.resizeAll();
     window.addEventListener('resize', this.resizeAll);
-
-    // temporary hacky workaround
-    this.btnClicked();
+    this.fetchImages();
   },
   watch: {
     '$store.getters.reload': function(val) {

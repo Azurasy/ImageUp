@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const db = require('../../database/db');
 
 verifyToken = (req, res, next) => {
-  req.userId = null;
+  req.userId = 0;
 
   let token = req.headers['x-access-token'];
   if (!token) return next();
