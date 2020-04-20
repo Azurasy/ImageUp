@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const path = require('path');
 const fs = require('fs');
+const { verifyToken } = require('./routes/auth/verifyJwtToken');
 
 // create local directory
 if (!fs.existsSync('./local')) fs.mkdirSync('./local');
@@ -23,6 +24,7 @@ const app = express();
 app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(verifyToken);
 
 // serve uploads folder
 if (!fs.existsSync('./local/uploads')) fs.mkdirSync('./local/uploads');

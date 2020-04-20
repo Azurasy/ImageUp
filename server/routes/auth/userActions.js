@@ -13,11 +13,11 @@ signup = (name, username, email, password, cb) => {
     password: bcrypt.hashSync(password, 8),
   })
     .then((user) => {
-      cb(null, user.dataValues.id);
+      return cb(null, user.dataValues.id);
     })
     .catch((err) => {
       console.warn(err);
-      cb('failed: server error', null);
+      return cb({ code: 500, reason: 'server error' });
     });
 };
 
@@ -30,18 +30,19 @@ login = (username, password, cb) => {
     where: { username },
   })
     .then((user) => {
-      if (!user) return cb('User not found');
+      if (!user) return cb({ code: 400, reason: 'user not found' });
 
       const passwordValid = bcrypt.compareSync(password, user.password);
-      if (!passwordValid) return cb('Incorrect password');
+      if (!passwordValid)
+        return cb({ code: 400, reason: 'incorrect password' });
 
       let token = jwt.sign({ id: user.id }, db.SECRET, { expiresIn });
 
-      cb(false, token, expiresIn);
+      return cb(null, token, expiresIn);
     })
     .catch((err) => {
       console.warn(err);
-      cb('failed: server error');
+      return cb({ code: 500, reason: 'server error' });
     });
 };
 
@@ -53,12 +54,12 @@ userDataByUsername = (username, cb) => {
     attributes: ['id', 'name', 'username', 'email'],
   })
     .then((user) => {
-      if (user) return cb(false, user.dataValues);
-      return cb('User not found');
+      if (user) return cb(null, user.dataValues);
+      return cb({ code: 404, reason: 'user not found' });
     })
     .catch((err) => {
       console.warn(err);
-      cb('Server error');
+      return cb({ code: 500, reason: 'server error' });
     });
 };
 
@@ -70,12 +71,28 @@ userDataById = (id, cb) => {
     attributes: ['id', 'name', 'username', 'email'],
   })
     .then((user) => {
-      if (user) return cb(false, user.dataValues);
-      return cb('User not found');
+      if (user) return cb(null, user.dataValues);
+      return cb({ code: 404, reason: 'user not found' });
     })
     .catch((err) => {
       console.warn(err);
-      cb('Server error');
+      return cb({ code: 500, reason: 'server error' });
+    });
+};
+
+usernameAvailable = (username, cb) => {
+  // cb(err, available)
+
+  User.findOne({
+    where: { username },
+  })
+    .then((user) => {
+      if (user) return cb(null, false);
+      return cb(null, true);
+    })
+    .catch((err) => {
+      console.warn(err);
+      return cb({ code: 500, reason: 'server error' });
     });
 };
 
@@ -84,4 +101,5 @@ module.exports = {
   login,
   userDataByUsername,
   userDataById,
+  usernameAvailable,
 };

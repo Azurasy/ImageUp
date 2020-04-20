@@ -59,11 +59,6 @@ export default new Vuex.Store({
             headers: { 'Content-Type': 'application/json' },
           })
           .then(res => {
-            if (res.data.error) {
-              reject(res.data.error);
-              return;
-            }
-
             const token = res.data.token;
             const expires = res.data.expires;
 
@@ -101,7 +96,7 @@ export default new Vuex.Store({
       return new Promise((resolve, reject) => {
         if (context.getters.isLoggedIn) {
           axios
-            .get('/api/user/tokendata')
+            .get('/api/user/data')
             .then(res => {
               context.commit('set_user', res.data);
               resolve();

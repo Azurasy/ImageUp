@@ -4,9 +4,9 @@
     <div class="container">
       <div :class="['content', $store.getters.theme]" @keyup.enter="submit">
         <input ref="form_name" type="text" placeholder="name" />
-        <input ref="form_user" type="text" placeholder="username" />
+        <input ref="form_username" type="text" placeholder="username" />
         <input ref="form_email" type="text" placeholder="email" />
-        <input ref="form_pass" type="password" placeholder="password" />
+        <input ref="form_password" type="password" placeholder="password" />
         <input
           ref="form_confirm"
           type="password"
@@ -33,106 +33,75 @@ export default {
     };
   },
   methods: {
-    submit() {
-      if (!this.inputValid()) return;
-      this.error = '';
-      //this.$refs.submit.disabled = true;
-
-      let body = {
+    formData() {
+      return {
         name: this.$refs.form_name.value,
-        username: this.$refs.form_user.value,
+        username: this.$refs.form_username.value,
         email: this.$refs.form_email.value,
-        password: this.$refs.form_pass.value,
+        password: this.$refs.form_password.value,
+        confirm: this.$refs.form_confirm.value,
       };
+    },
+    submit() {
+      const inputError = this.invalidInput();
+      if (inputError) return (this.error = inputError);
+
+      this.error = '';
+      this.$refs.submit.disabled = true;
+
+      const body = this.formData();
 
       this.$store
         .dispatch('signup', body)
         .then(() => {
           this.$router.push(`/u/${body.username}`);
         })
-        .catch(err => console.log(err));
-      /*
-      axios
-        .post(`/api/user/auth/signup`, body, {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-        .then(res => {
-          if (res.data.error) {
-            this.error = res.data.error;
-            return;
-          }
-        })
-        .catch(() => {
-          this.error = "Failed to create account: server error";
+        .catch(err => {
+          this.error = err.response.data.reason;
+          this.$refs.submit.disabled = false;
         });
-        */
     },
-    inputValid() {
-      let Name = this.$refs.form_name.value;
-      let Username = this.$refs.form_user.value;
-      let Email = this.$refs.form_email.value;
-      let Password = this.$refs.form_pass.value;
-      let Confirm = this.$refs.form_confirm.value;
+    invalidInput() {
+      let fields = this.formData();
+      const { username, email, password, confirm } = fields;
 
       const userRE = /^[a-zA-Z0-9_-]+$/;
       const emailRE = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
       // check field length
-      let fields = {
-        Name,
-        Username,
-        Email,
-        Password,
-        'Confirm password': Confirm,
-      };
       for (let key in fields) {
         let val = fields[key];
-
-        if (val.length < 1) {
-          this.error = `${key} is empty!`;
-          return false;
-        }
+        if (val.length < 1) return `${key} is empty`;
       }
 
       // username length
-      if (Username.length < 4 || Password.length > 32) {
-        this.error = 'Username must be between 4 and 32 characters!';
-        return false;
-      }
+      if (username.length < 4 || username.length > 32)
+        return 'username must be between 4 and 32 characters';
 
       // password length
-      if (Password.length < 8 || Password.length > 16) {
-        this.error = 'Password must be between 8 and 16 characters!';
-        return false;
-      }
+      if (password.length < 8 || password.length > 16)
+        return 'password must be between 8 and 16 characters';
 
       // check username password characters
-      fields = { Username, Password };
+      fields = { username, password };
       for (let key in fields) {
         let val = fields[key];
 
-        if (!val.match(userRE)) {
-          this.error = `Invalid characters in ${key}. Allowed: a-z A-Z 0-9 _ -`;
-          return false;
-        }
+        if (!val.match(userRE))
+          return `invalid characters in ${key}. allowed: a-z A-Z 0-9 _ -`;
       }
 
       // check email
-      if (!Email.match(emailRE)) {
-        this.error = 'Invalid email!';
-        return false;
-      }
+      if (!email.match(emailRE)) return 'invalid email';
 
       // confirm password
-      if (Password != Confirm) {
-        this.error = 'Password does not match!';
+      if (password != confirm) {
+        this.$refs.form_password.value = '';
         this.$refs.form_confirm.value = '';
-        return false;
+        return 'password does not match';
       }
 
-      return true;
+      return false;
     },
   },
 };
@@ -203,7 +172,7 @@ div.dark input {
 
 .error {
   margin-bottom: 0;
-  color: #ff6f69;
+  color: #d93e38;
   font-size: 1.2em;
 }
 </style>

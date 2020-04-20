@@ -1,22 +1,21 @@
-const { usernameAvailable } = require('./verifySignup');
-const authJwt = require('./verifyJwtToken');
+const { requireToken } = require('./verifyJwtToken');
 const controller = require('./userActions.js');
 const express = require('express');
 const router = express.Router();
 
 router.post('/auth/signup', (req, res) => {
-  const data = req.body;
-
-  usernameAvailable(data.username, (err) => {
-    if (err) return res.status(200).json({ error: err });
+  controller.usernameAvailable(req.body.username, (err, available) => {
+    if (err) return res.status(err.code).json(err);
+    if (!available) return res.status(400).json({ reason: 'username taken' });
 
     controller.signup(
-      data.name,
-      data.username,
-      data.email,
-      data.password,
+      req.body.name,
+      req.body.username,
+      req.body.email,
+      req.body.password,
+
       (err, id) => {
-        if (err) return res.json({ error: err });
+        if (err) return res.status(err.code).json(err);
         res.json({ id });
       }
     );
@@ -27,34 +26,32 @@ router.post('/auth/login', (req, res) => {
   controller.login(
     req.body.username,
     req.body.password,
+
     (err, token, expires) => {
-      if (err) return res.json({ error: err });
+      if (err) return res.status(err.code).json(err);
       res.json({ token, expires });
     }
   );
 });
 
 router.get('/data/:username', (req, res) => {
-  authJwt.verifyToken(req, (token_err) => {
-    controller.userDataByUsername(req.params.username, (err, data) => {
-      if (err) return res.json({ error: err });
+  controller.userDataByUsername(req.params.username, (err, data) => {
+    if (err) return res.status(err.code).json(err);
 
-      if (req.userId != data.id || token_err)
-        res.json({ id: data.id, name: data.name, username: data.username });
-      else res.json(data);
-    });
+    if (req.userId != data.id)
+      return res.json({
+        id: data.id,
+        name: data.name,
+        username: data.username,
+      });
+    res.json(data);
   });
 });
 
-router.get('/tokendata', (req, res) => {
-  authJwt.verifyToken(req, (err) => {
-    if (err) return res.status(401).end();
-
-    controller.userDataById(req.userId, (err, data) => {
-      if (err) return res.json({ error: err });
-
-      res.json(data);
-    });
+router.get('/data', requireToken, (req, res) => {
+  controller.userDataById(req.userId, (err, data) => {
+    if (err) return res.status(err.code).json(err);
+    res.json(data);
   });
 });
 

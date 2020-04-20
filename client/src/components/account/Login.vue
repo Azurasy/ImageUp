@@ -3,8 +3,8 @@
     <p class="heading">Login</p>
     <div class="container">
       <div :class="['content', $store.getters.theme]" @keyup.enter="submit">
-        <input ref="form_user" type="text" placeholder="username" />
-        <input ref="form_pass" type="password" placeholder="password" />
+        <input ref="form_username" type="text" placeholder="username" />
+        <input ref="form_password" type="password" placeholder="password" />
         <p ref="error" class="error" v-if="error">{{ error }}</p>
         <div class="button" ref="submit" @click="submit">Continue</div>
         <div class="smaller button" @click="$emit('signup')">
@@ -26,60 +26,42 @@ export default {
     };
   },
   methods: {
-    submit() {
-      if (!this.inputValid()) return;
-      this.error = '';
-      //this.$refs.submit.disabled = true;
-
-      let body = {
-        username: this.$refs.form_user.value,
-        password: this.$refs.form_pass.value,
+    formData() {
+      return {
+        username: this.$refs.form_username.value,
+        password: this.$refs.form_password.value,
       };
+    },
+    submit() {
+      if (this.invalidInput()) return;
+      this.error = '';
+      this.$refs.submit.disabled = true;
+
+      const body = this.formData();
 
       this.$store
         .dispatch('login', body)
         .then(() => {
           this.$router.push(`/u/${body.username}`);
         })
-        .catch(err => console.log(err));
-
-      /*
-      axios
-        .post(`/api/user/auth/login`, body, {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
-        .then(res => {
-          if (res.data.error) {
-            this.error = res.data.error;
-            return;
-          }
-          console.log(res.data.token);
-          // res.data.token;
-          // res.data.expires
-        })
-        .catch(() => {
-          this.error = "Failed: Server error!";
+        .catch(err => {
+          this.error = err.response.data.reason;
+          this.$refs.submit.disabled = false;
         });
-        */
     },
-    inputValid() {
-      let username = this.$refs.form_user.value;
-      let password = this.$refs.form_pass.value;
-
+    invalidInput() {
       // check field length
-      let fields = { username, password };
+      let fields = this.formData();
       for (let key in fields) {
         let val = fields[key];
 
         if (val.length < 1) {
-          this.error = `${key} is empty!`;
-          return false;
+          this.error = `${key} is empty`;
+          return true;
         }
       }
 
-      return true;
+      return false;
     },
   },
 };
@@ -150,7 +132,7 @@ div.dark input {
 
 .error {
   margin-bottom: 0;
-  color: #ff6f69;
+  color: #d93e38;
   font-size: 1.2em;
 }
 </style>
