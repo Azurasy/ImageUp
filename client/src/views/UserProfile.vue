@@ -14,11 +14,9 @@
         </pre>
         <pre class="data">  Images:</pre>
         <ul class="imgdata">
-          <li
-            v-for="img in images"
-            :key="img.uuid"
-            @click="imageClicked(img)"
-          >{{ img.file_name }}{{ img.file_ext }}</li>
+          <li v-for="img in images" :key="img.uuid" @click="imageClicked(img)">
+            {{ img.file_name }}{{ img.file_ext }}
+          </li>
         </ul>
       </template>
       <pre v-else>{{ data.error }}</pre>
