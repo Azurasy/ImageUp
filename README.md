@@ -39,7 +39,7 @@ Edit and configure the `.env` file.
 - When set to `production` (or `prod` or `p`), the entire application will be served. This includes the static front-end files located in `ImageUp/server/public` along with the back-end API
 - When set to `developoment` (or anything other than production), only the back-end API will be served.
 
-`DEV_PORT` - The port on which the application will be served when `NODE_ENV` is set to development.
+`DEV_PORT` - The port on which the application will be served when `NODE_ENV` is set to development.  
 `PROD_PORT` - The port on which the application will be served when `NODE_ENV` is set to production.
 
 `DB_DIALECT` - Determines the database dialect. Set to `sqlite` by default so that no additional setup is required, however you may also use: `mysql`, `mariadb`, `postgres`, or `mssql`. However, if using any of these you must setup the database server yourself.
