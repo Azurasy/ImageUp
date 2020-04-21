@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Image = require('../../model/Image');
+const Image = require('../../models/Image');
 const { Op } = require('sequelize');
 
 router.get('/:userId/:index', function (req, res) {

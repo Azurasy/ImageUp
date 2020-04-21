@@ -7,32 +7,31 @@ let secret;
 if (!fs.existsSync('./local/secret.key')) {
   secret = shortid.generate() + shortid.generate();
   fs.writeFileSync('./local/secret.key', secret);
-} else {
-  secret = fs.readFileSync('./local/secret.key').toString();
-}
+} else secret = fs.readFileSync('./local/secret.key').toString();
 
 // create database tables using models
 createTables = (db) => {
   db.SECRET = secret;
 
   db.authenticate()
-    .then(() => console.log('Database connected'))
-    .catch((err) => console.warn(err));
+    .then(() => {
+      console.log('Database connected');
 
-  const User = require('../model/User');
-  const Image = require('../model/Image');
+      const User = require('../models/User');
+      const Image = require('../models/Image');
 
-  //const Role = require('./model/Role');
-  //const UserRole = require('./model/UserRole');
-  //Role.belongsToMany(User, { through: 'user_roles', foreignKey: 'roleId', otherKey: 'userId'});
-  //User.belongsToMany(Role, { through: 'user_roles', foreignKey: 'userId', otherKey: 'roleId'});
+      //const Role = require('./models/Role');
+      //const UserRole = require('./models/UserRole');
+      //Role.belongsToMany(User, { through: 'user_roles', foreignKey: 'roleId', otherKey: 'userId'});
+      //User.belongsToMany(Role, { through: 'user_roles', foreignKey: 'userId', otherKey: 'roleId'});
 
-  db.sync();
+      db.sync();
+    })
+    .catch((err) => console.error(err));
 };
 
 if (process.env.DB_DIALECT == 'sqlite') {
   const db = require('./db');
-  db.authenticate();
   createTables(db);
 } else {
   // creates database before creating tables
@@ -49,13 +48,10 @@ if (process.env.DB_DIALECT == 'sqlite') {
 
   createDb
     .query(`CREATE DATABASE IF NOT EXISTS ${process.env.DB_NAME};`)
-    .then((res) => {
+    .then(() => {
       const db = require('./db');
       createTables(db);
-      createDb.close();
     })
-    .catch((err) => {
-      console.warn(err);
-      createDb.close();
-    });
+    .catch((err) => console.warn(err))
+    .finally(() => createDb.close());
 }

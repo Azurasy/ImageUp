@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const shortid = require('shortid');
 const path = require('path');
-const Image = require('../../model/Image');
+const Image = require('../../models/Image');
 
 // multer
 var multer = require('multer');

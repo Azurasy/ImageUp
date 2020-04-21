@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const Image = require('../../model/Image');
+const Image = require('../../models/Image');
 
 router.get('/:id', function (req, res) {
   Image.findOne({
