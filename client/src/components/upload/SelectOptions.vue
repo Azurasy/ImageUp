@@ -12,7 +12,9 @@
           <select id="file_exposure">
             <option value="public">Public</option>
             <option value="unlisted">Unlisted</option>
-            <option ref="private" value="private">Private {{privateMsg}}</option>
+            <option ref="private" value="private"
+              >Private {{ privateMsg }}</option
+            >
           </select>
         </div>
 
