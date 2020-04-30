@@ -4,6 +4,7 @@
     <template v-if="data">
       <button class="data" @click="logout" v-if="userLoggedIn">logout</button>
       <template v-if="!data.error">
+        <!--
         <pre class="data">
     User data:
     
@@ -18,6 +19,9 @@
             {{ img.file_name }}{{ img.file_ext }}
           </li>
         </ul>
+        -->
+
+        <Gallery :user_id="data.id" />
       </template>
       <pre v-else>{{ data.error }}</pre>
     </template>
@@ -25,13 +29,15 @@
 </template>
 
 <script>
-import Header from '../components/Header';
 import axios from 'axios';
+import Header from '../components/Header';
+import Gallery from '../components/gallery/Gallery';
 
 export default {
   name: 'UserProfile',
   components: {
     Header,
+    Gallery,
   },
   data: function() {
     return {
