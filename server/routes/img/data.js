@@ -10,6 +10,9 @@ router.get('/:id', function (req, res) {
     if (image) {
       let img_data = image.dataValues;
 
+      if (img_data.exposure == 'private' && req.userId != img_data.userId)
+        return res.json({ data: null, reason: 'This image is private' });
+
       User.findOne({
         where: { id: img_data.userId },
       })
@@ -19,7 +22,7 @@ router.get('/:id', function (req, res) {
         .finally(() => {
           return res.json({ data: img_data });
         });
-    } else res.json({ data: null });
+    } else return res.json({ data: null, reason: 'Image not found' });
   });
 });
 

@@ -48,7 +48,9 @@ export default {
             this.loaded = true;
           };
           downloadingImage.src = `/img/${this.data.uuid}${this.data.file_ext}`;
-        } else this.data = { title: 'Image not found' };
+        } else {
+          this.data = { title: res.data.reason };
+        }
       })
       .catch(err => console.log(err));
   },

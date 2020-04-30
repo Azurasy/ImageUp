@@ -5,19 +5,23 @@ const { Op } = require('sequelize');
 
 router.get('/:userId/:index', function (req, res) {
   const op = req.params.userId == 0 ? Op.gte : Op.eq;
-  Image.findAll({
-    where: {
-      userId: {
-        [op]: req.params.userId,
-      },
-      exposure: 'public',
-      expiration: {
-        [Op.or]: {
-          [Op.eq]: 0,
-          [Op.gt]: Math.floor(new Date() / 1000),
-        },
+
+  const where = {
+    userId: {
+      [op]: req.params.userId,
+    },
+    expiration: {
+      [Op.or]: {
+        [Op.eq]: 0,
+        [Op.gt]: Math.floor(new Date() / 1000),
       },
     },
+  };
+
+  if (!req.userId || req.userId != req.params.userId) where.exposure = 'public';
+
+  Image.findAll({
+    where,
     order: [['id', 'DESC']],
     limit: 50,
   })

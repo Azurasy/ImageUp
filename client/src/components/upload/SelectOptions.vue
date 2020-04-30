@@ -12,7 +12,7 @@
           <select id="file_exposure">
             <option value="public">Public</option>
             <option value="unlisted">Unlisted</option>
-            <option value="private" disabled>Private (login)</option>
+            <option ref="private" value="private">Private {{privateMsg}}</option>
           </select>
         </div>
 
@@ -43,6 +43,7 @@ export default {
   data: function() {
     return {
       uploading: false,
+      privateMsg: '',
     };
   },
   methods: {
@@ -65,6 +66,14 @@ export default {
         this.$emit('selected', { name, exposure, expiration });
       }
     },
+  },
+  mounted() {
+    this.$refs.private.disabled = true;
+    this.privateMsg = '(login)';
+    if (this.$store.getters.isLoggedIn) {
+      this.$refs.private.disabled = false;
+      this.privateMsg = '';
+    }
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div>
-    <Header title="Placeholder Profile" />
     <template v-if="data">
+      <Header :title="data.name" />
       <button class="data" @click="logout" v-if="userLoggedIn">logout</button>
       <template v-if="!data.error">
         <!--
