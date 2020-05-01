@@ -1,6 +1,6 @@
 <template>
-  <div :class="['header', this.$store.getters.theme]">
-    <p>{{ title }}</p>
+  <div :class="['header', this.$store.getters.theme, { height: title }]">
+    <p v-if="title">{{ title }}</p>
     <hr />
   </div>
 </template>
@@ -16,15 +16,12 @@ export default {
 .header {
   font-family: 'Comfortaa';
   max-width: 100%;
-  height: 125px;
   font-size: 4em;
-  padding-top: 30px;
 }
 .header p {
   margin: 0;
   padding: 0;
 }
-
 hr {
   margin: 0;
   margin-top: 15px;
@@ -39,7 +36,6 @@ hr {
   );
   opacity: 0.1;
 }
-
 .header.dark hr {
   background-image: linear-gradient(
     to right,
@@ -47,5 +43,9 @@ hr {
     #ffffff,
     rgba(0, 0, 0, 0)
   );
+}
+.height {
+  height: 125px;
+  padding-top: 30px;
 }
 </style>
