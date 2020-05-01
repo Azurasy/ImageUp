@@ -2,7 +2,7 @@
   <div class="gallery-item">
     <div class="content">
       <a :href="page_url" @click.prevent="clicked">
-        <img :id="'img-' + data.uuid" src="@/assets/images/blank.png" alt="" />
+        <img :id="'img-' + data.uuid" src="@/assets/images/blank.png" />
       </a>
     </div>
   </div>
