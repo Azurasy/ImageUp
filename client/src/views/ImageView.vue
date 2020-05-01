@@ -5,10 +5,12 @@
       <img ref="vimage" src="@/assets/images/blank.png" />
       <img v-if="!loaded" src="@/assets/images/loading.gif" />
       <template v-else class="info">
-        <p v-if="data.userId == 0">Uploaded by: Anonymous</p>
-        <p v-else>
+        <p>
           Uploaded by:
-          <span class="link" @click="gotoProfile">@{{ data.username }}</span>
+          <span v-if="data.userId == 0">Anonymous</span>
+          <a :href="`/u/${data.username}`" v-else @click.prevent="clicked">
+            <span class="link" @click="gotoProfile">@{{ data.username }}</span>
+          </a>
         </p>
       </template>
     </div>
@@ -72,7 +74,8 @@ img {
 }
 
 .info {
-  display: block;
+  display: flex;
+  flex-direction: row;
 }
 
 p {
@@ -89,5 +92,8 @@ p {
 .link:hover {
   color: #5399df;
   cursor: pointer;
+}
+a {
+  text-decoration: none;
 }
 </style>
