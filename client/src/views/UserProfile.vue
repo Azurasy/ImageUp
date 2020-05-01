@@ -20,9 +20,7 @@
         </div>
 
         <div class="actions">
-          <button class="logout" @click="logout" v-if="userLoggedIn">
-            logout
-          </button>
+          <button class="logout" @click="logout" v-if="userLoggedIn">logout</button>
         </div>
       </div>
 
@@ -169,9 +167,12 @@ h6 {
   margin-right: 20px;
   cursor: pointer;
 }
+.logout:hover {
+  background-color: rgb(243, 243, 243);
+}
 .container.dark .logout {
   background-color: #2d333c;
-  border: 3px solid rgba(156, 156, 156, 0.52);
+  border: 3px solid rgba(111, 111, 111, 0.52);
   color: rgba(156, 156, 156, 0.52);
 }
 .container.dark .logout:hover {

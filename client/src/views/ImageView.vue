@@ -83,7 +83,11 @@ p {
 }
 
 .link {
-  color: #3b9dff;
+  color: #238cf5;
+  cursor: pointer;
+}
+.link:hover {
+  color: #5399df;
   cursor: pointer;
 }
 </style>

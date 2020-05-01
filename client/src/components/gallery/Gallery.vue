@@ -1,19 +1,17 @@
 <template>
   <div>
     <div class="gallery" id="gallery" ref="gallery">
-      <ImageTile
-        v-for="item in images"
-        :key="item.uuid"
-        :data="item"
-        @image_loaded="resizeAll"
-      />
+      <ImageTile v-for="item in images" :key="item.uuid" :data="item" @image_loaded="resizeAll" />
+    </div>
+    <div v-if="noImages" class="no-img">
+      <p>No images yet</p>
     </div>
   </div>
 </template>
 
 <script>
 /* Credits to https://uicookies.com/css-image-galleries/ and https://codepen.io/vhanla/pen/PxjZvj
-    for the core code of this gallery */
+    for the core gallery code */
 
 import axios from 'axios';
 import ImageTile from './ImageTile';
@@ -30,6 +28,7 @@ export default {
       data: [],
       images: [],
       gallery: null,
+      noImages: false,
     };
   },
   methods: {
@@ -38,7 +37,7 @@ export default {
         .get(`/api/img/recent/${this.user_id}/${this.index}`)
         .then(res => {
           let data = res.data.data;
-          if (data) {
+          if (data.length > 0) {
             data.forEach(img => {
               img.loaded = false;
               img.added = false;
@@ -52,6 +51,8 @@ export default {
             });
 
             this.data = [...this.data, ...data];
+          } else {
+            if (this.data.length == 0) this.noImages = true;
           }
         })
         .catch(err => console.log(err));
@@ -116,5 +117,8 @@ export default {
   .gallery {
     grid-template-columns: repeat(auto-fill, minmax(40%, 1fr));
   }
+}
+.no-img {
+  font-size: 1.5em;
 }
 </style>
