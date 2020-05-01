@@ -20,7 +20,9 @@
         </div>
 
         <div class="actions">
-          <button class="logout" @click="logout" v-if="userLoggedIn">logout</button>
+          <button class="logout" @click="logout" v-if="userLoggedIn">
+            logout
+          </button>
         </div>
       </div>
 
@@ -152,9 +154,6 @@ h6 {
 .header {
   padding-bottom: 20px;
 }
-.actions {
-}
-
 .logout {
   width: auto;
   height: 50px;

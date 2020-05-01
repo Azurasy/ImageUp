@@ -1,7 +1,12 @@
 <template>
   <div>
     <div class="gallery" id="gallery" ref="gallery">
-      <ImageTile v-for="item in images" :key="item.uuid" :data="item" @image_loaded="resizeAll" />
+      <ImageTile
+        v-for="item in images"
+        :key="item.uuid"
+        :data="item"
+        @image_loaded="resizeAll"
+      />
     </div>
     <div v-if="noImages" class="no-img">
       <p>No images yet</p>
