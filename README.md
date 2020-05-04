@@ -12,7 +12,7 @@ curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
-# Instructions to download and run application:
+# Instructions to download and run:
 
 1. Download and extract [ImageUp_v0.1-alpha.zip](https://github.com/Onusai/ImageUp/releases/download/v0.1-alpha/ImageUp_v0.1-alpha.zip)
 2. Edit the `.env` file to configure server options (optional)
