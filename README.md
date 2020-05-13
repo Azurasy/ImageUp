@@ -1,7 +1,7 @@
 # ImageUp
 
 Image hosting and sharing web application.  
-In development [example website](http://ec2-34-205-141-243.compute-1.amazonaws.com) (updated periodically, may not include latest features)
+In development [example website](http://ec2-3-83-45-20.compute-1.amazonaws.com/) (updated periodically, may not include latest features)
 
 ## This app requires Node.JS and NPM to run
 
