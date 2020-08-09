@@ -1,18 +1,17 @@
 # ImageUp
 
 Image hosting and sharing web application.  
-In development [example website](http://ec2-3-83-45-20.compute-1.amazonaws.com/) (updated periodically, may not include latest features)
 
 ## This app requires Node.JS and NPM to run
 
-Commands to install on ubuntu:
+Commands to install Node.JS and NPM on ubuntu:
 
 ```bash
 curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
-# Instructions to download and run:
+# Instructions to download and run application:
 
 1. Download and extract [ImageUp_v0.1-alpha.zip](https://github.com/Onusai/ImageUp/releases/download/v0.1-alpha/ImageUp_v0.1-alpha.zip)
 2. Edit the `.env` file to configure server options (optional)
